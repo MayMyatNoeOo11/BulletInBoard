@@ -23,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //To avoid running into errors,specify the default string length before running migration.
+        //Schema::defaultStringLength(191);
     }
 }

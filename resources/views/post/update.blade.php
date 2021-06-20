@@ -34,7 +34,7 @@
                     Update Post
                 </div>
                 <div class="card-body">
-                    <form name="updatePostForm" id="updatePostForm" method="post" action="{{route('update')}}">
+                    <form name="updatePostForm" id="updatePostForm" method="post" action="{{route('updatePost')}}">
                     @csrf
 
                     <div class="form-group">

@@ -51,7 +51,9 @@
 
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea rows="8" name="description" class="@error('description') is-invalid @enderror form-control" value=""  required="">{{ old('description') }}</textarea>
+                        <textarea rows="8" name="description" class="@error('description') is-invalid @enderror form-control" value=""  required="">
+                        {{ old('description') }}
+                        </textarea>
                         @error('description')
                         <div class="alert alert-danger alert-dismissible">{{ $message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -71,5 +73,8 @@
         <div class="col-md-2">
         </div>    
 </div>
+
+
+
 
 @endsection

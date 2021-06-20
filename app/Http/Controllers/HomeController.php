@@ -23,7 +23,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.common_screen');
+        return view('user.common');
     }
     /**
      * Show the Bulletinboard Common Header.

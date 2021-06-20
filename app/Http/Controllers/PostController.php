@@ -81,6 +81,17 @@ class PostController extends Controller
          return redirect()->route('showAllPosts');//->with('success','New post is created successfully.');
           
       }
+         /**
+       * @param  \App\Models\Post  $post
+      * Delete Post
+      */
+    public function update(Post $post)
+    {
+     return "";
+    
+        
+    
+    }
 
       /**
        * @param  \App\Models\Post  $post

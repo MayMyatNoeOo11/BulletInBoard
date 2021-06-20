@@ -34,7 +34,7 @@
                         <th scope="col">Description</th>
                         <th scope="col">Posted User</th>
                         <th scope="col">Posted Date</th>
-                        <th scope="col"></th>
+                        <th scope="col" ></th>
                         
                     </tr>
                 </thead>
@@ -42,17 +42,15 @@
                     @foreach($postData as $key=>$data)
                     <tr>
                         <th scope="row" style="width:1px; white-space:nowrap;">{{ ++$i}}</th>
-                        <td><a href="{{ route('update',$data->id) }}">{{ $data->title }}</a></td>
+                        <td><a href="#postDetail" data-toggle="modal" data-target="#postDetail">{{ $data->title }}</a></td>
                         <td>{{ \Str::limit($data->description,50) }}</td>
                         <td>{{ $data->name }}</td>
-                        <td>{{date_format($data->created_at,'d-m-Y')}} </td>
+                        <td>{{date_format($data->created_at,'Y-m-d')}} </td>
                         <td style="width:1px; white-space:nowrap;">
-                            <form action="{{route('delete',$data->id)}}" method="POST">
-                               
-                            <a class="btn btn-sm btn-warning" href="{{ route('update',$data->id) }}">Edit</a>   
-                            @csrf
-                                
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            <form action="{{route('deletePost',$data->id)}}" method="POST">                               
+                            <a class="btn btn-sm btn-warning" href="{{ route('updatePost',$data->id) }}">Edit</a>   
+                            @csrf                                
+                            <input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
                             </form>
                         </td>                       
                         
@@ -68,4 +66,9 @@
         </div>        
     </div>
 </div>
+	
+
+
+
+
 @endsection

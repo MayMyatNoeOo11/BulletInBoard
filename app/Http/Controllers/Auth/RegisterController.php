@@ -74,7 +74,7 @@ class RegisterController extends Controller
             'profile_photo' => $data['profile_photo'],
             'date_of_birth' => $data['date_of_birth'],
             'created_user_id'=>'1',
-            'updated_user_id'=>'1',
+            'updated_user_id'=>'1'
            
             
         ]);

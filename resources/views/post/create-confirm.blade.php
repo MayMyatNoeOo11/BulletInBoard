@@ -47,7 +47,7 @@
     
 </div>
 <div class="col-md-1">
-  <a class="btn btn-lg btn-danger" href="#">Cancel</a> 
+  <a class="btn btn-lg btn-danger" href="javascript:history.back()">Cancel</a> 
     
 </div>
 <div class="col-md-5"></div>

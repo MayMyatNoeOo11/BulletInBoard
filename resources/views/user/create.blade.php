@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row justify-content-center">
-        <div class="col-md-8" style="padding-top:10px">
+        <div class="col-md-8" style="padding-top:0px">
             <div class="card">
                 <div class="card-header bg-info " >Create User</div>
 
@@ -100,13 +100,8 @@
 
                             <div class="col-md-6">
 
-                               
-                                <div class='input-group date' id='date_of_birth'>
-            <input type='text' class="form-control" />
-            <span class="input-group-addon">
-              <span class="glyphicon glyphicon-calendar"></span>
-            </span>
-            </div>
+                            <input class="form-control" id="date_of_birth" name="date" placeholder="yyyy/mm/dd" type="text"/>
+                  
 
                                 @error('date_of_birth')
                                     <span class="invalid-feedback" role="alert">
@@ -134,7 +129,7 @@
                             <label for="profile" class="col-md-4 col-form-label text-md-right">Profile Photo</label>
 
                             <div class="col-md-6">
-                                <input id="profile_photo" type="file"  accept=".png, .jpg, .jpeg" onchange="validateFileType()" class="form-control @error('profile_photo') is-invalid @enderror" name="profile_photo" value="{{ old('profile_photo') }}"  required autocomplete="profile_photo" autofocus>
+                                <input id="profile_photo" type="file"  accept=".png, .jpg, .jpeg" onchange="validateFileType(event)" class="form-control @error('profile_photo') is-invalid @enderror" name="profile_photo" value="{{ old('profile_photo') }}"  required autocomplete="profile_photo" autofocus>
 
                                 @error('profile_photo')
                                     <span class="invalid-feedback" role="alert">
@@ -143,7 +138,12 @@
                                 @enderror
                             </div>
                         </div>
-
+                        <div class="form-group row">
+                            <div class="col-md-4"></div>
+                            <div class="col-md-6">
+                                <img style="border: 1px solid grey;width:120px;height:120px" src="{{URL::asset('/images/profile.jpeg')}}" id="preview_image"/>
+                            </div>
+                        </div>
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -160,20 +160,32 @@
         </div>
     </div>
 <script type="text/javascript">
- function validateFileType(){
+
+ function validateFileType(event){
+        var file=$('#profile_photo');
         var fileName = document.getElementById("profile_photo").value;
         var idxDot = fileName.lastIndexOf(".") + 1;
         var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
         if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){
+            alert(fileName);
+         
             //TO DO
+           $('#preview_image').attr('src',URL.createObjectURL(event.target.files[0]));
         }else{
             
-            alert("Only jpg/jpeg and png files are allowed!");
-            document.getElementById("profile_photo").value="";
+            alert("Only jpg/jpeg and png files are allowed.");
+            $('profile_photo').value="";
         }   
     }
-        $(function() {alert('document ready');
-          $('#date_of_birth').datetimepicker();
+        $(function() {
+            //alert('document ready');
+            //var $j = jQuery.noConflict();
+            $("#date_of_birth").datepicker({
+                format: 'dd/mm/yyyy',
+                minDate:new Date('1990-01-01'),
+                maxDate:new Date()
+       
+            });
         });
     </script>    
 @endsection

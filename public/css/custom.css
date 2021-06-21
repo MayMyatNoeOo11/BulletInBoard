@@ -6,3 +6,30 @@ nav.custom-bc{
 nav.custom-bc>ol{
     background-color:white;
 }
+table td, 
+table th {
+    white-space: nowrap;
+    width: 1%;
+}
+.menu_btn {
+    padding: 5px 8px;
+    background-color:cadetblue;
+    color: #000;
+    border-radius: 20px;
+    margin: 0px 20px;
+    font-size:2em;
+}
+.profile_preview{
+    border: 1px solid grey;width:120px;height:120px
+}
+.table tr.first td
+{
+    border-top:none;
+}
+.table tr.last td
+{
+    border-bottom:none;
+}
+.confirm-bg-color{
+background-color:#b1dfd9;
+}

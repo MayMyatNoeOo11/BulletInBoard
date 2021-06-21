@@ -24,7 +24,9 @@ class UserSeeder extends Seeder
                 'phone' => '0979895623'.$i,
                 'address' => Str::random(50),
                 'profile_photo' => 'D:\MayMyatNoeOo\images\img'.$i.'.jpg',
-                'date_of_birth' => '11-7-1996',
+                'date_of_birth' => '1996-11-07',
+                'created_at'=>now(),
+                'updated_at'=>now(),
                 'created_user_id'=>'1',
                 'updated_user_id'=>'1'
             ]);

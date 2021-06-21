@@ -14,8 +14,9 @@ class PostController extends Controller
    { 
         $postData=Post::leftjoin('users','users.id','=','posts.created_user_id')
                     ->select('posts.*','users.name')
-                    ->where('posts.status','1')
+                    //->where('posts.status','1')
                     ->paginate(10);
+                    
        return view('post.index',compact('postData'))
             ->with('i',(request()->input('page',1)-1)*10); 
     }
@@ -42,7 +43,7 @@ class PostController extends Controller
           $post=new Post;
 
           $post->title=$request->title;
-          $post->description=$request->description;
+          $post->description=$request->input('description');
           $post->created_user_id='1';
           $post->status='1';
 
@@ -78,21 +79,40 @@ class PostController extends Controller
 
          $post->save();       
 
-         return redirect()->route('showAllPosts');//->with('success','New post is created successfully.');
+         return redirect()->route('showAllPosts')->with('success','New post is created successfully.');
           
       }
          /**
        * @param  \App\Models\Post  $post
-      * Delete Post
+      * Edit Post
       */
-    public function update(Post $post)
+    public function edit($id)
     {
-     return "";
+      $postData=Post::find($id);
+     return  view("post.update",compact('postData'));
     
         
     
     }
+    public function update(Request $request, Post $post)
+    {
+      $request->validate([
+        'title'=>'bail|required|unique:posts|max:255',
+        'description'=>'required'
+    ]);
 
+    $post=new Post;
+
+    $post->title=$post->title;
+    $post->description=$post->description;
+    $post->created_user_id='1';
+    $post->updated_user_id=Auth::getUser()->id;;
+    $post->deleted_user_id='1';
+    $post->status='1';
+    $post->update();  
+      return redirect()->route('showAllPosts')
+          ->with('success', 'Post updated successfully');   
+    }
       /**
        * @param  \App\Models\Post  $post
       * Delete Post

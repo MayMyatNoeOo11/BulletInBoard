@@ -7,10 +7,14 @@
                     
 
             <div class="container">
-            <h2 style="display:initial">SCM BulletinBoard</h2>                
-                    <a href="#"  class="col-md-2 " ><i class="bi bi-person-circle"></i>Profile</a>
-                    <a href="{{ route('showAllUsers') }}"  class="col-md-1 " ><i class="bi bi-people-fill"></i>Users</a>
-                    <a href="{{ route('showAllPosts') }}"  class="col-md-1" ><i class="bi bi-file-earmark-text"></i>Posts</a>              
+           <div class="row mt-5">
+           <div class="col-md-12">
+           <h2 style="display:initial" class="mr-5">SCM BulletinBoard</h2>                
+                    <a href="#"  class="menu_btn "><i class="bi bi-person-circle"></i>Profile</a>
+                    <a href="{{ route('showAllUsers') }}"   class="menu_btn" ><i class="bi bi-people-fill"></i>Users</a>
+                    <a href="{{ route('showAllPosts') }}"  class="menu_btn"><i class="bi bi-file-earmark-text"></i>Posts</a>   
+           </div>  
+           </div>         
             </div>
         
 @endsection

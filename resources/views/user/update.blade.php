@@ -6,11 +6,11 @@
         <div class="col-md-8 offset-md-2" style="padding-top:4px">
             <div class="card">
                 <div class="card-header bg-light" >
-                    <h4 class="text-center">Create User</h4>
+                    <h4 class="text-center">Edit User</h4>
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('createUser') }}">
+                    <form method="POST" action="{{ route('updateUser') }}">
                         @csrf
 
                         <div class="form-group row">

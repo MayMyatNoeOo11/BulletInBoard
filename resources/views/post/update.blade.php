@@ -39,7 +39,7 @@
 
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" id="title" name="title" class="@error('title') is-invalid @enderror form-control" value="{{ old('title') }}" required="Fill title">
+                        <input type="text" id="title" name="title" class="@error('title') is-invalid @enderror form-control" value="{{ $postData->title }}" required="Fill title">
                         @error('title')
                         <div class="alert alert-danger alert-dismissible">{{ $message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -51,7 +51,7 @@
 
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea rows="8" name="description" class="@error('description') is-invalid @enderror form-control" required="">{{ old('description') }}</textarea>
+                        <textarea rows="8" name="description" class="@error('description') is-invalid @enderror form-control" required="">{{ $postData->description }}</textarea>
                         @error('description')
                         <div class="alert alert-danger alert-dismissible">{{ $message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -60,19 +60,16 @@
                         </div>
                         @enderror
                     </div>
-                    <div class="form-horizontal">
-                    <label for="status">Active Status</label>
-                    <div class="form-check form-switch">									
-      <input class="form-check-input" type="checkbox" id="form11Example4" checked />									
-      									
-    </div>									
-</div>
-
-                    <button type="submit" class="btn btn-md btn-primary">Update</button>
-                    <button type="reset" class="btn btn-md btn-danger">Clear</button>
+                    <div class="form-group">
+                        <label for="status">Active Status</label>             									
+                        <input style="margin-left:20px" class=" form-check-input" type="checkbox" value="" id="status" {{ ($postData->status == 1 ? 'checked' : '')}}>			
+                    </div>									
+        
+                    <button type="submit" class="btn btn-lg btn-success">Update</button>
+                    <button type="reset" class="btn btn-lg">Clear</button>
 
                     </form>
-                </div>
+                </div><!-- end cardbody-->
             </div><!-- end card-->
         </div>
         <div class="col-md-2">

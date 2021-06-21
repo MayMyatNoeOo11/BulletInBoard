@@ -31,13 +31,20 @@ Route::get('/common',[UserController::class,'common'])->name('common');
 Route::get('/post/create',[PostController::class,'create'])->name('create');
 Route::post('/post/create-post',[PostController::class,'create_post'])->name('createPost');
 Route::post('/post/confirm-post',[PostController::class,'confirm_post'])->name('confirmPost');
-Route::post('/post/edit',[PostController::class,'update'])->name('updatePost');
+Route::get('/post/edit/{id}',[PostController::class,'edit'])->name('editPost');
+Route::post('/post/update',[PostController::class,'update'])->name('updatePost');
 Route::post('/post/delete',[PostController::class,'delete'])->name('deletePost'); 
 
+
 Route::get('/user/all-user',[UserController::class,'index'])->name('showAllUsers');
-Route::get('/user/create',[UserController::class,'create'])->name('createUser');
+Route::get('/post/profile/{id?}',[UserController::class,'profile'])->name('profile');
+Route::get('/user/create',[UserController::class,'create'])->name('createUserForm');
+Route::Post('/user/create-user',[UserController::class,'create_user'])->name('createUser');
+Route::get('/user/confirm-user',[UserController::class,'confirm_user'])->name('confirmUser');
 Route::post('/user/update',[UserController::class,'update'])->name('updateUser');
+
 Route::post('/user/delete',[UserController::class,'delete'])->name('deleteUser');
+Route::get('/user/change-password',[UserController::class,'changePassword'])->name('changePassword');
 
 //Auth Routes
 Route::middleware(['auth'])->group(function(){

@@ -47,7 +47,7 @@ class PostController extends Controller
           $post->created_user_id='1';
           $post->status='1';
 
-          return view('post.create-confirm',compact('post'));          
+          return view('post.create_confirm',compact('post'));          
 
          // $post->save();       
 
@@ -125,5 +125,12 @@ class PostController extends Controller
     
         
     
+    }
+    /**
+     * Upload Post View
+     */
+    public function upload()
+    {
+      return view('post.upload');
     }
 }

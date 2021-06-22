@@ -33,3 +33,7 @@ table th {
 .confirm-bg-color{
 background-color:#b1dfd9;
 }
+a.nav-font{
+font-size:2em;
+font-family:Verdana, Geneva, Tahoma, sans-serif;
+}

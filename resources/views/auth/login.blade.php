@@ -1,6 +1,16 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+<nav aria-label="breadcrumb" class="custom-bc" >
+  <ol class="breadcrumb"  >
+  <li class="breadcrumb-item"><a href="{{ route('showAllPosts') }}">Home</a></li>
+    <li class="breadcrumb-item active"><a href="{{ route('login') }}">Login</a></li>   
+  </ol>
+</nav>
+
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -53,15 +63,15 @@
 
                         <div class="form-group row mb-0">
                             <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn">
                                     {{ __('Login') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
+                                <!-- @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                @endif
+                                @endif -->
                             </div>
                         </div>
                     </form>

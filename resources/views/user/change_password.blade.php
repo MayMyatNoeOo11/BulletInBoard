@@ -15,9 +15,9 @@
                             <label for="old_password" class="col-md-4 col-form-label text-md-right">Old Password</label>
 
                             <div class="col-md-6">
-                                <input id="old_password" type="password"  class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $email ?? old('email') }}" required autocomplete="email" autofocus>
+                                <input  id="old_password" type="password"  class="form-control " name="old-password" value="{{ $userData->password}}" readonly>
 
-                                @error('email')
+                                @error('password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -66,7 +66,7 @@
 <script>
     $(document).ready(function(){
        
-        var userID = "{{ Auth::user()->id }}";
+       
 
 
     });

@@ -12,10 +12,13 @@
         <h2>Posts</h2>   
         <div class="col-md-11" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
             <input  style="padding-left:5px" type="text" name="search" id="txt-search" />
-            <a  name="search" id="btn-search" class="btn btn-large btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</a>          
-            <a  name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>
-            <a  name="download" id="btn-download" class="btn btn-large btn-info"><i class="bi bi-download"></i>&nbsp;&nbsp;Download</a>
-            <a  href="{{route('create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>    
+            <a  name="search" id="btn-search" class="btn btn-large btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</a>
+            <a  name="download" id="btn-download" class="btn btn-large btn-info"><i class="bi bi-download"></i>&nbsp;&nbsp;Download</a> 
+            @if(Auth::user())
+              <a href="{{route('uploadPost')}}" name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>            
+              <a  href="{{route('create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>  
+           @endif         
+  
         
         </div>
         
@@ -37,8 +40,11 @@
                         <th scope="col">Description</th>
                         <th scope="col">Posted User</th>
                         <th scope="col">Posted Date</th>
+                        @if(Auth::user())
                         <th scope="col" ></th>
+                        @else                        
                         
+                        @endif
                     </tr>
                 </thead>
                 <tbody>
@@ -49,13 +55,18 @@
                         <td>{{ \Str::limit($data->description,50) }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{date_format($data->created_at,'Y-m-d')}} </td>
+                        @if(Auth::user())
                         <td style="width:1px; white-space:nowrap;">
                             <form action="{{route('deletePost',$data->id)}}" method="POST">                               
                             <a class="btn btn-sm btn-success" href="{{ route('editPost',$data->id) }}">Edit</a>   
                             @csrf                                
                             <input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
                             </form>
-                        </td>                       
+                        </td> 
+                        @else                        
+                        
+                        @endif
+                      
                         
                     </tr>
                     @endforeach

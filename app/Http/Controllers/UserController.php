@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Log;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,9 +36,11 @@ class UserController extends Controller
     /**
      * Profile View 
      */
-    public function profile($id=1)
+    public function profile($id)
     {
-        return view('user.profile');
+        $userData=User::Find($id);
+        
+      return view('user.profile',compact('userData'));
     }
     /**
      *  Create User  View  
@@ -48,12 +51,24 @@ class UserController extends Controller
         return view('user.create');
     }
     /**
-     *  Create User  View  
-     * 
+     *  Create User   
+     * POST method
      */
-    public function create_user()
+    public function create_user(Request $request)
     {
-        return view('user.create');
+     
+       // Log::info($request);
+        //validation
+        $validated = $request->validate([
+             'name'=>'required',
+             'email' => 'required|unique:users',
+             'password' => 'required',
+             'profile'=>'required',
+            'date_of_birth'=>'required|date'
+        ]);
+        dd($validated);
+$userData=new User;
+       return view('user.create_confirm',compact('userData'));  
     }
        /**
      *  Create User Create Confirm View  
@@ -64,12 +79,13 @@ class UserController extends Controller
         return view('user.create_confirm');
     }
     /**
-     *  Update User    
+     *  Update User View    
      * 
      */
-    public function update()
+    public function update($id)
     {
-        return view('user.common');
+        $userData=User::Find($id);
+        return view('user.update',compact('userData'));
     }
     /**
      *  Delete User by id
@@ -80,11 +96,12 @@ class UserController extends Controller
         return "";
     }
     /**
-     * Change Password
+     * Change Password View
      * Get Method
      */
-    public function changePassword()
+    public function changePassword($id)
     {
-        return view('user.change_password');
+        $userData=User::Find($id);
+        return view('user.change_password',compact('userData'));
     }
 }

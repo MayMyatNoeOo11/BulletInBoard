@@ -19,12 +19,12 @@
                 <div class="row mb-2">                    
                         <div class="row mb-3">
                             <div class="col-md-3">
-                                <img class="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="preview_image"/>
+                                <img class="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="profile_image_preview"/>
                             </div>
                             <div class="col-md-1 offset-md-7">
-                             <button class="btn btn-primary btn-lg">
+                             <a class="btn btn-primary btn-lg" href="{{route('updateUser',Auth::id())}}">
                                  Edit
-                             </button>
+                            </a>
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -32,7 +32,7 @@
                                 Name :
                             </div>
                             <div class="col-md-9">
-                            Aye Nam
+                            {{$userData->name}}
                             </div>
                         </div>   
                         <div class="row mb-3">
@@ -40,7 +40,7 @@
                                 Email :
                             </div>
                             <div class="col-md-9">
-                            Aye Nam@gmail.com
+                            {{$userData->email}}
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -48,7 +48,12 @@
                                 Type :
                             </div>
                             <div class="col-md-9">
-                            User
+                                @if($userData->type=="1")
+                                    Admin
+                                @else
+                                    User
+                                @endif
+                           
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -56,7 +61,7 @@
                                 Phone :
                             </div>
                             <div class="col-md-9">
-                            09798956235
+                                 {{$userData->phone}}
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -64,7 +69,7 @@
                                 Date of Birth :
                             </div>
                             <div class="col-md-9">
-                            1997-11-11
+                                {{$userData->date_of_birth}}
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -72,18 +77,19 @@
                                 Address :
                             </div>
                             <div class="col-md-9">
-                            Aye Nam Street, Dagon Township ,Yangon
+                                {{$userData->address}}
                             </div>
                         </div> 
+
                 </div>
             </div>
 
         </div>
         <div class="row mt-2">
                 <div class="col-md-5 offset-md-5">
-                    <button type="button" class="btn btn-default btn-lg">
+                    <a type="button" class="btn btn-default btn-lg" href="{{ route('common') }}">
                         OK
-                    </button>
+                    </a>
                     
                 </div>
             </div>

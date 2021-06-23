@@ -2,11 +2,18 @@
 
 namespace App\Http\Controllers;
 use Log;
+use Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Contracts\Services\User\UserServiceInterface;
 class UserController extends Controller
 {
+    public $userService;
+  public function __construct(UserServiceInterface $user_service_interface)
+  {
+      $this->userService = $user_service_interface;
+  }
      /**
      * Show All Users
      *
@@ -15,14 +22,13 @@ class UserController extends Controller
     
     public function index()
     {
-            $userData=DB::table('users as u1')
-                ->join('users as u2','u1.created_user_id','=','u2.id')
-                ->select('u1.*','u2.name as created_user_name')                
-                ->paginate(5);
+        
+
+        $userData=$this->userService->getUserList();
             
            return view('user.index',compact('userData'))
            ->with('k',(request()->input('page',1)-1)*5);    
-       // return view('user.index',compact('userData'));
+  
     }
 
     /**
@@ -38,7 +44,7 @@ class UserController extends Controller
      */
     public function profile($id)
     {
-        $userData=User::Find($id);
+        $userData=$this->userService->getUserbyId($id);
         
       return view('user.profile',compact('userData'));
     }
@@ -55,36 +61,38 @@ class UserController extends Controller
      * POST method
      */
     public function create_user(Request $request)
-    {
-     
-       // Log::info($request);
-        //validation
-        $validated = $request->validate([
-             'name'=>'required',
-             'email' => 'required|unique:users',
-             'password' => 'required',
-             'profile'=>'required',
-            'date_of_birth'=>'required|date'
-        ]);
-        dd($validated);
-$userData=new User;
+    {     
+
+     $request->validate([
+        'name'=>'required',
+        'email' => 'required|unique:users',
+        'password' => 'required',
+        'profile_photo'=>'required',
+       'date_of_birth'=>'required|date',
+       'password' => 'required|min:6|confirmed',
+       'password_confirmation' => 'required| min:6'
+   ]);
+
+        $userData=$request;
        return view('user.create_confirm',compact('userData'));  
     }
        /**
-     *  Create User Create Confirm View  
+     * Store User 
      * 
      */
-    public function confirm_user()
+    public function confirm_user(Request $request)
     {
-        return view('user.create_confirm');
+     
+        $userData=$this->userService->saveUser($request);
+        return redirect()->route('showAllUsers')->with('success','New user is created successfully.');
     }
     /**
      *  Update User View    
-     * 
+     * GET Method
      */
     public function update($id)
     {
-        $userData=User::Find($id);
+        $userData=$this->userService->getUserbyId($id);
         return view('user.update',compact('userData'));
     }
     /**

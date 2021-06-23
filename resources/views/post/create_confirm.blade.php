@@ -9,7 +9,7 @@
 
   <div class="row mt-1">
     <div class="col-md-12">      
-      <form action="{{route('confirmPost')}}" method="post">
+      <form action="{{route('createConfirmPost')}}" method="post">
       @csrf
 
     <input type="hidden" id="title" name="title" value="{{$post->title}}" >
@@ -51,6 +51,7 @@
       </form>
     </div>
   </div>
+  @endsection
 
 
 

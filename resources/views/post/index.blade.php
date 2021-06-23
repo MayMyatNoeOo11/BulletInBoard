@@ -24,7 +24,7 @@
         
         @if ($message = Session::get('success'))
         <div class="col-md-11 alert alert-success">
-            <p>{{ $message }}</p>
+            <span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
             </button>

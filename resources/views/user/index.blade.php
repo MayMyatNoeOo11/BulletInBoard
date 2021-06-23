@@ -2,12 +2,23 @@
 
 @section('content')
 <nav aria-label="breadcrumb" class="custom-bc" >
-  <ol class="breadcrumb"  >
-  <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
     <li class="breadcrumb-item active"><a href="{{ route('showAllUsers') }}">Users</a></li>   
   </ol>
 </nav>
 <div class="container">
+
+@if ($message = Session::get('success'))
+        <div class="col-md-11 alert alert-success">
+            <span>{{ $message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+        
+
     <div class="row justify-content-center">  
         <h2>Users List</h2>   
         <div class="col-md-12" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
@@ -23,7 +34,7 @@
         
         <div class="container">
         <table class="table table-responsive table-bordered mb-5">
-                        <thead>
+                    <thead>
                     <tr class="table-success">
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
@@ -52,7 +63,7 @@
                        
                        <td>
                        <form>
-                        <a class="btn btn-success btn-sm" href="#">Edit</a>
+                        <a class="btn btn-success btn-sm" href="{{route('updateUser',$data->id)}}">Edit</a>
                         <button class="btn btn-danger btn-sm" >delete</button>
                        </form>
                        </td>
@@ -149,4 +160,4 @@
   </div>
 </div>
 <!-- End Modal-->
-@endsection-
+@endsection

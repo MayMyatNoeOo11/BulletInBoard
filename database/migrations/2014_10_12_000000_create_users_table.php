@@ -27,7 +27,8 @@ class CreateUsersTable extends Migration
             $table->string('date_of_birth')->nullable();;
             $table->integer('created_user_id');
             $table->integer('updated_user_id');
-            $table->integer('deleted_user_id')->nullable();;
+            $table->integer('deleted_user_id')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

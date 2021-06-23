@@ -23,13 +23,14 @@ class PostFactory extends Factory
     {
         $paragraphs = $this->faker->paragraphs(rand(2, 6));
         $title = $this->faker->unique()->realText(50);
+        $postTitle = $this->faker->unique()->realText(10);
         $description = "{$title}";
         foreach ($paragraphs as $para) {
             $description .= "<p>{$para}</p>";
         }
 
         return [
-            'title' =>  $title ,
+            'title' =>  $postTitle ,
             'description' => $description,
             'status' => '1',
             'created_user_id'=>'1',            

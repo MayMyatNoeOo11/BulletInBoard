@@ -34,8 +34,9 @@
                     Update Post
                 </div>
                 <div class="card-body">
-                    <form name="updatePostForm" id="updatePostForm" method="post" action="{{route('updatePost')}}">
+                    <form name="updatePostForm" id="updatePostForm" method="post" action="{{route('updatePost',$postData->id)}}">
                     @csrf
+                    <input type="hidden" name="created_user_id" value="{{ $postData->created_user_id }}" id="created_user_id" />
 
                     <div class="form-group">
                         <label for="title">Title</label>
@@ -60,11 +61,16 @@
                         </div>
                         @enderror
                     </div>
+
+                    @if(Auth::user()->type=='0')
                     <div class="form-group">
                         <label for="status">Active Status</label>             									
-                        <input style="margin-left:20px" class=" form-check-input" type="checkbox" value="" id="status" {{ ($postData->status == 1 ? 'checked' : '')}}>			
-                    </div>									
-        
+                        <input style="margin-left:20px" class=" form-check-input" type="checkbox" name="status" value="" id="status" {{ ($postData->status == 1 ? 'checked' : '')}}>
+                        <input type="hidden" name="status" value="0"/>			
+                    </div>	
+                    @else
+                        <input type="hidden" name="status" value="1"/>
+                    @endif
                     <button type="submit" class="btn btn-lg btn-success">Update</button>
                     <button type="reset" class="btn btn-lg">Clear</button>
 

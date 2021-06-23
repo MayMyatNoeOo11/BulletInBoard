@@ -48,7 +48,7 @@
                                 Type :
                             </div>
                             <div class="col-md-9">
-                                @if($userData->type=="1")
+                                @if($userData->type=="0")
                                     Admin
                                 @else
                                     User

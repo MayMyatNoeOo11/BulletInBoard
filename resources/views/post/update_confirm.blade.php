@@ -15,11 +15,15 @@
 
   <div class="row mt-1">
     <div class="col-md-12">      
-      <form action="{{route('confirmPost')}}" method="post">
+      <form action="{{route('updateConfirmPost','2')}}" method="post">
       @csrf
+      
 
-    <input type="hidden" id="title" name="title" value="{{$post->title}}" >
-    <input type="hidden" id="description" name="description" value=" {{$post->description}}" >  
+    <input type="hidden" id="title" name="title" value="{{$post->title}}" />
+    <input type="hidden" id="description" name="description" value=" {{$post->description}}" />  
+    <input type="hidden" name="created_user_id" value="{{$post->created_user_id}}" id="created_user_id"/>
+    <input type="hidden" name="status"  value="{{$post->status}}" id="status" />
+      
     <div class="col-md-8 offset-md-2 mt-2">
         <div class="row card">
             <h4 class="text-center">Update Post Confirmation</h4>
@@ -33,6 +37,19 @@
                             {{$post->title}}   
                             </div>
                         </div>
+                        @if(Auth::user()->type=='0')
+                        <div class="col-md-3">
+                                Status :
+                            </div>
+                            <div class="col-md-9">
+                            @if($post->status=='1')
+                              Active
+                            @else
+                              Not Active
+                            @endif
+                            </div>
+                        </div>
+                        @endif
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 Description :
@@ -40,7 +57,8 @@
                             <div class="col-md-9">
                             {{$post->description}}
                             </div>
-                        </div>    
+                        </div>
+                            
                 </div>
             </div>
 
@@ -54,6 +72,7 @@
                 </div>
             </div>
     </div> 
+   
       </form>
     </div>
   </div>

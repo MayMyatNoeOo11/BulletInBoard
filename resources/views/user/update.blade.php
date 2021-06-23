@@ -2,8 +2,20 @@
 
 @section('content')
 
+    <div class="row">
+        <div class="col-md-2">
+        
+        <nav aria-label="breadcrumb" class="custom-bc" >
+            <ol class="breadcrumb"  >
+                <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
+                <li class="breadcrumb-item"><a href="{{ route('showAllUsers') }}">Users</a></li>   
+                <li class="breadcrumb-item active"><a href="#" style="color:black">Edit</a></li>  
+            </ol>
+            </nav>
+        
+        </div>
     
-        <div class="col-md-8 offset-md-2" style="padding-top:4px">
+        <div class="col-md-8" style="padding-top:4px">
             <div class="card">
                 <div class="card-header bg-light" >
                     <h4 class="text-center">Edit User</h4>
@@ -42,14 +54,14 @@
                                         </div>
                                     </div>
 
-
+                                    @if(Auth::user()->type=='0')
                                     <div class="form-group row">
                                         <label for="type" class="col-md-3 col-form-label text-md-right">User Type</label>
 
                                         <div class="col-md-6">  
                                             <select name="type" id="type" class="form-control">
-                                                <option value="1" {{ $userData->type == '1' ? 'selected' : '' }}>Admin</option>
-                                                <option value="0" {{ $userData->type == '0' ? 'selected' : '' }}>User</option>
+                                                <option value="1" {{ $userData->type == '0' ? 'selected' : '' }}>Admin</option>
+                                                <option value="0" {{ $userData->type == '1' ? 'selected' : '' }}>User</option>
                                             </select>
                                      
                                             @error('type')
@@ -59,7 +71,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
+                                    @endif
                                     <div class="form-group row">
                                         <label for="phone" class="col-md-3 col-form-label text-md-right">Phone</label>
 
@@ -108,7 +120,11 @@
                                         <label for="profile" class="col-md-3 col-form-label text-md-right">Profile Photo</label>
 
                                         <div class="col-md-6">
-                                            <input id="profile_photo" type="file"  accept=".png, .jpg, .jpeg" value="pic1.jpg" onchange="validateFileType(this.event)" class="form-control @error('profile_photo') is-invalid @enderror" name="profile_photo"  required autocomplete="profile_photo" autofocus>
+                                            <input id="profile_photo" type="file"
+                                              accept=".png, .jpg, .jpeg" value="{{$userData->profile_photo}}" 
+                                              onchange="validateFileType(this.event)" 
+                                              class="form-control @error('profile_photo') is-invalid @enderror" 
+                                              name="profile_photo"  required autocomplete="profile_photo" autofocus>
 
                                             @error('profile_photo')
                                                 <span class="invalid-feedback" role="alert">
@@ -151,6 +167,9 @@
                     </form>
                 </div>
             </div>
+        </div>
+        <div class="col-md-2">
+        </div>
         </div>
    
 <script type="text/javascript">

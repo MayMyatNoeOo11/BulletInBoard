@@ -72,7 +72,7 @@
                         <input type="hidden" name="status" value="1"/>
                     @endif
                     <button type="submit" class="btn btn-lg btn-success">Update</button>
-                    <button type="reset" class="btn btn-lg">Clear</button>
+                    <a href="{{route('showAllPosts')}}" class="btn btn-lg">Cancel</a>
 
                     </form>
                 </div><!-- end cardbody-->

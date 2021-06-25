@@ -27,6 +27,10 @@ class PostService implements PostServiceInterface
     {
         return $this->postDao->getPostbyId($id);
     }
+    public function getPostInfo($id)
+    {
+        return $this->postDao->getPostInfo($id);
+    }
     public function updatePost($request,$id)
     {
         return $this->postDao->updatePost($request,$id);
@@ -35,5 +39,14 @@ class PostService implements PostServiceInterface
     {
         return $this->postDao->savePost($request);
     }
+    public function getPostedUsers($id)
+    {
+        return $this->postDao->getPostedUsers($id);
+    }
+    public function deletePost($id)
+    {
+        return $this->postDao->deletePost($id);
+    }
+    
 
 }

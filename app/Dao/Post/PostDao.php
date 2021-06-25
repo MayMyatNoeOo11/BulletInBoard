@@ -4,6 +4,7 @@ namespace App\Dao\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Post;
+use Illuminate\Support\Facades\DB;
 use App\Contracts\Dao\Post\PostDaoInterface;
 
 class PostDao implements PostDaoInterface
@@ -42,6 +43,15 @@ class PostDao implements PostDaoInterface
         $postData=Post::find($id);
         return $postData;
     }
+    public function getPostInfo($id)
+    {
+        $postData=Post::leftjoin('users','users.id','=','posts.created_user_id')
+        ->select('posts.*','users.name')
+        ->where('posts.id',$id)
+        ->first();   
+                
+        return $postData;
+    }
     public function updatePost($request,$id)
     {
         $old_post_data=Post::find($id);
@@ -65,6 +75,17 @@ class PostDao implements PostDaoInterface
        $post->Save(); 
     }
    
+    public function getPostedUsers($id)
+    {
+        $posted_user=Post::where('created_user_id',$id)->get();
+        return $posted_user;
+    }
+    public function deletePost($id)
+    {
+                    //delete
+                    $is_deleted=DB::table('posts')->where('id', '=', $id)->delete();
+                    return $is_deleted;
+    }
 
 
 }

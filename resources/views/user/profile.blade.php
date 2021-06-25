@@ -4,7 +4,10 @@
 <nav aria-label="breadcrumb" class="custom-bc" >
   <ol class="breadcrumb"  >
     <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
+    @if(Auth::user()->type=='0')
     <li class="breadcrumb-item"><a href="{{ route('showAllUsers') }}">Users</a></li>
+    @endif  
+  
     <li class="breadcrumb-item active" aria-current="page">Profile</li>
   </ol>
 </nav>
@@ -19,7 +22,7 @@
                 <div class="row mb-2">                    
                         <div class="row mb-3">
                             <div class="col-md-3">
-                                <img class="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="profile_image_preview"/>
+                                <img class="profile_preview" src="{{ asset('storage/images/'.$userData->profile_photo)}}" id="profile_image_preview"/>
                             </div>
                             <div class="col-md-1 offset-md-7">
                              <a class="btn btn-primary btn-lg" href="{{route('updateUser',Auth::id())}}">
@@ -29,7 +32,7 @@
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-3">
-                                Name :
+                                Name : 
                             </div>
                             <div class="col-md-9">
                             {{$userData->name}}

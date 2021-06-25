@@ -20,6 +20,10 @@ class UserService implements UserServiceInterface
     {
         return $this->userDao->getUserbyId($id);
     }
+    public function getUserInfo($id)
+    {
+        return $this->userDao->getUserInfo($id);
+    }
     public function saveUser($request)
     {
         return $this->userDao->saveUser($request);
@@ -28,4 +32,9 @@ class UserService implements UserServiceInterface
     {
         return $this->userDao->updateUser($request,$id);
     }
+    public function deleteUser($id)
+    {
+        return $this->userDao->deleteUser($id);
+    }
+
 }

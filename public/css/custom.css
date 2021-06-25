@@ -37,3 +37,13 @@ a.nav-font{
 font-size:2em;
 font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
+.modal-head-color
+{
+    background-color:lightseagreen;
+}
+td>#detail
+{
+    color:brown;
+    text-decoration: underline;
+  cursor: -webkit-grab; cursor: grab;
+}

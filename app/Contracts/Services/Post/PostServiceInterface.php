@@ -9,7 +9,10 @@ interface PostServiceInterface
     public function getListForUser($id);
     public function getListForGuest();
     public function getPostbyId($id);
+    public function getPostInfo($id);
     public function updatePost($request,$id);
     public function savePost($request);
+    public function getPostedUsers($id);
+    public function deletePost($id);
 
 }

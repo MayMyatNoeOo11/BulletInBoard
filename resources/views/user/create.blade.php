@@ -32,7 +32,7 @@
 
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('createUser') }}">
+                    <form method="POST" enctype="multipart/form-data" action="{{route('createUser') }}" >
                         @csrf
 
                         <div class="form-group row">
@@ -83,9 +83,7 @@
                             <div class="col-md-6">
                                 <input id="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"  value="{{ old('password_confirmation') }}" required >
                             </div>
-                        </div>
-
-                        
+                        </div>                        
 
                         <div class="form-group row">
                             <label for="date_of_birth" class="col-md-4 col-form-label text-md-right">Date of Birth</label>
@@ -115,7 +113,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>                     
+                        </div>             
 
 
                         <div class="form-group row">
@@ -136,7 +134,10 @@
                             <label for="profile" class="col-md-4 col-form-label text-md-right">Profile Photo</label>
 
                             <div class="col-md-6">
-                                <input id="profile_photo" name="profile_photo"  type="file"  accept=".png, .jpg, .jpeg" onchange="validateFileType(event)" class="form-control @error('profile_photo') is-invalid @enderror" value="{{ old('profile_photo') }}"  required  autofocus>
+                                <input id="profile_photo" name="profile_photo"  type="file" 
+                                 accept=".png, .jpg, .jpeg" onchange="validateFileType(event)"
+                                  class="form-control @error('profile_photo') is-invalid @enderror" 
+                                  value="{{ old('profile_photo') }}"  required >
 
                                 @error('profile_photo')
                                     <span class="invalid-feedback" role="alert">
@@ -145,12 +146,14 @@
                                 @enderror
                             </div>
                         </div>
+
                         <div class="form-group row">
                             <div class="col-md-4"></div>
                             <div class="col-md-6">
                                 <img class="profile_preview" name="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="profile_preview_image"/>
                             </div>
                         </div>
+
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
@@ -161,7 +164,10 @@
                                 </button>
                             </div>
                         </div>
+
                     </form>
+
+                    
                 </div>
             </div>
         </div>

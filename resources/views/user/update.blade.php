@@ -22,8 +22,9 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('updateUser') }}">
+                    <form method="post"  enctype="multipart/form-data" action="{{route('updateUser',$userData->id)}}">
                         @csrf
+                     <input type="hidden" value="{{$userData->profile_photo}}" name="old_photo" />
                         <div class="row">
                             <div class="col-md-10">                        
                                     <div class="form-group row">
@@ -60,8 +61,8 @@
 
                                         <div class="col-md-6">  
                                             <select name="type" id="type" class="form-control">
-                                                <option value="1" {{ $userData->type == '0' ? 'selected' : '' }}>Admin</option>
-                                                <option value="0" {{ $userData->type == '1' ? 'selected' : '' }}>User</option>
+                                                <option value="0" {{ $userData->type == '0' ? 'selected' : '' }}>Admin</option>
+                                                <option value="1" {{ $userData->type == '1' ? 'selected' : '' }}>User</option>
                                             </select>
                                      
                                             @error('type')
@@ -106,7 +107,7 @@
                                         <label for="address" class="col-md-3 col-form-label text-md-right">Address</label>
 
                                         <div class="col-md-6">
-                                            <textarea id="address" class="form-control" >{{$userData->address }}</textarea>
+                                            <textarea id="address"  name="address" class="form-control" >{{$userData->address }}</textarea>
 
                                             @error('address')
                                                 <span class="invalid-feedback" role="alert">
@@ -120,11 +121,14 @@
                                         <label for="profile" class="col-md-3 col-form-label text-md-right">Profile Photo</label>
 
                                         <div class="col-md-6">
-                                            <input id="profile_photo" type="file"
-                                              accept=".png, .jpg, .jpeg" value="{{$userData->profile_photo}}" 
-                                              onchange="validateFileType(this.event)" 
+                                            <input id="profile_photo"
+                                             type="file"
+                                              accept=".png, .jpg, .jpeg" 
+                                              
+                                              onchange="validateFileType(event)" 
                                               class="form-control @error('profile_photo') is-invalid @enderror" 
-                                              name="profile_photo"  required autocomplete="profile_photo" autofocus>
+                                              name="profile_photo" 
+                                              autocomplete="profile_photo" autofocus/>
 
                                             @error('profile_photo')
                                                 <span class="invalid-feedback" role="alert">
@@ -137,7 +141,7 @@
                                     <div class="form-group row">
                                         
                                         <div class="col-md-7 offset-md-3">
-                                            <img class="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="preview_image"/>
+                                            <img class="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="profile_preview_image"/>
                                         </div>
                                     </div>
 
@@ -160,7 +164,7 @@
                                     </div>                                                
                             </div>
                             <div class="col-md-2">
-                                <img class="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="old_profile"/>
+                                <img class="profile_preview" src="{{ asset('storage/images/'.$userData->profile_photo)}}" id="old_profile"/>
                                 <label for="lbl"> Old Profile</label>
                             </div>
                         </div>

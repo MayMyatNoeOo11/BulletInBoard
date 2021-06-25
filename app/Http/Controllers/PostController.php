@@ -16,38 +16,49 @@ class PostController extends Controller
       $this->postService = $post_service_interface;
   }
 
+      /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+      $post=$this->postService->getPostInfo($id);
+      
+      return view('post.show', compact('post'));
+    }
+
     /**
      * Show active Posts List for User itself, Show all posts for Admin
      */
     public function showAllPosts()
     { 
       if(Auth::check())
-      {  
-     
+      { 
       $userType=Auth::user()->type;
          if($userType=='0')
          {
            $postData=$this->postService->getListForAdmin();
-
-         }
-       
+         }       
          else 
          {
-          $postData=$postService->getListForUser(Auth::user()->id);       
-        }        
-
+          $postData=$this->postService->getListForUser(Auth::user()->id);       
+        }
       }       
-         //guest           
+         //if guest (show all post where status is active)          
       else
       {
         $postData=$this->postService->getListForGuest();
       }
 
       return view('post.index',compact('postData'))
-      ->with('i',(request()->input('page',1)-1)*10); 
-
+      ->with('i',(request()->input('page',1)-1)*10);
     }
 
+    /**
+     * Show the form for creating a new post.
+     */
     public function create()
     {
          return view('post.create');
@@ -59,10 +70,6 @@ class PostController extends Controller
       */
      public function create_post(Request $request)
      {
-
-        /**
-         * Validations
-         */
         $request->validate([
             'title'=>'bail|required|unique:posts|max:255',
             'description'=>'required'
@@ -72,77 +79,84 @@ class PostController extends Controller
           $post->title=$request->title;
           $post->description=$request->input('description');      
        
-          return view('post.create_confirm',compact('post'));
-          
+          return view('post.create_confirm',compact('post'));          
       }
 
-      public function create_confirm_post(Request $request)
+      /**
+       * Store a newly created post in database.
+       */
+     public function create_confirm_post(Request $request)
       {       
-       
-        /**
-         * Validations
-         */
+
         $request->validate([
             'title'=>'bail|required|unique:posts|max:255',
             'description'=>'required'
         ]);
 
-
           $postData=$this->postService->savePost($request);
-         return redirect()->route('showAllPosts')->with('success','New post is created successfully.');
-          
+
+         return redirect()->route('showAllPosts')->with('success','New post is created successfully.');          
       }
-         /**
-       * @param  \App\Models\Post  $post
-      * Edit Post
-      */
+
+    /**
+     * Show the form for editing the specified post.
+     */
     public function edit($id)
     {
       $postData=$this->postService->getPostbyId($id);
-     return  view("post.update",compact('postData')); 
-    
+
+     return  view("post.update",compact('postData'));     
     }
-    /**
-     *Update post form
-     * POST method
-     */
-    public function update_post(Request $request,Post $post)
+
+    public function update_post(Request $request,$id)
     {
       $request->validate([
-        'title'=>['required', Rule::unique('posts')->ignore(Auth::id())],
+        'title'=>['required', Rule::unique('posts')->ignore($id)],
         'description'=>'required'
     ]);
     $post=$request;
 
     return view('post.update_confirm',compact('post'));
     }
+    
     /**
-     * update Confirm
+     *  Actually Update the specified post in db.
      */
     public function update_confirm_post(Request $request,$id)
     {
-
       $this->postService->updatePost($request,$id);
-     return redirect()->route('showAllPosts')->with('success','New post is updated successfully.');
+
+     return redirect()->route('showAllPosts')->with('success','Post is updated successfully.');
 
     }
 
-      /**
-       * @param  \App\Models\Post  $post
-      * Delete Post
-      */
-    public function delete(Post $post)
+
+    public function delete_post($id)
     {
-        return redirect()->route('showAllPosts')
-                        ->with('success','Post deleted successfully');
-       // $post->delete();
-    
-        
-    
+        $post=$this->postService->getPostbyId($id);     
+        //dd($data);
+        return view('post.delete',compact('post'));    
     }
+
     /**
-     * Upload Post View
+     * delete confirm
      */
+    public function delete_post_confirm(Request $request) //delete post confirm
+    {
+      $is_deleted=$this->postService->deletePost($request->id);
+      if($is_deleted==1)
+      {
+        $message="Post has been deleted successfully.";
+        return redirect()->route('showAllPosts')->with('success',$message);
+      }
+      else
+      {
+        $message="Post delete fail !";
+        return redirect()->route('showAllPosts')->with('fail',$message);
+        
+      }
+    }
+
     public function upload()
     {
       return view('post.upload');

@@ -16,24 +16,32 @@
                     <span aria-hidden="true">&times;</span>
             </button>
         </div>
-        @endif
+@endif
+@if ($message = Session::get('fail'))
+        <div class="col-md-11 alert alert-danger">
+            <span>{{ $message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+@endif
         
 
     <div class="row justify-content-center">  
         <h2>Users List</h2>   
         <div class="col-md-12" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
-        <form class="form-inline">
-            <input class="form-control mr-2" placeholder="Name" style="padding-left:2px" type="text" name="name" id="name" />
-            <input class=" form-control mr-2"  placeholder="Email"  type="text" name="email" id="email" />          
-            <input class="form-control mr-2"  placeholder="Created From Date"  type="text" name="created_from_date" id="created_from_date" />
-            <input class="form-control mr-2"  placeholder="Created To Date"  type="text" name="created_to_date" id="created_to_date" />
-            <a  name="search" id="btn-search" class="btn btn-large btn-info mr-2"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</a>
-            <a  href="{{route('createUserForm')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>        
-        </form>
+            <div class="form-inline">
+                <input class="form-control mr-2" placeholder="Name" style="padding-left:2px" type="text" name="name" id="name" />
+                <input class=" form-control mr-2"  placeholder="Email"  type="text" name="email" id="email" />          
+                <input class="form-control mr-2"  placeholder="Created From Date"  type="text" name="created_from_date" id="created_from_date" />
+                <input class="form-control mr-2"  placeholder="Created To Date"  type="text" name="created_to_date" id="created_to_date" />
+                <a  name="search" id="btn-search" class="btn btn-large btn-info mr-2"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</a>
+                <a  href="{{route('createUserForm')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>        
+            </div>
         </div>
         
         <div class="container">
-        <table class="table table-responsive table-bordered mb-5">
+            <table class="table table-responsive table-bordered mb-5">
                     <thead>
                     <tr class="table-success">
                         <th scope="col">#</th>
@@ -52,7 +60,8 @@
                 @foreach($userData as $key=>$data)
                    <tr>
                         <td>{{++$k}}</td>
-                        <td><a href="#" data-toggle="modal" data-target="#userModal">{{$data->name}}</a></td>
+                        <td><a data-toggle="modal" id="btn-detail" data-target="#detailModal"
+                                data-attr="{{route('showUser',$data->id)}}">{{ $data->name }}</a></td>
                         <td>{{$data->email}}</td>
                         <td>{{$data->created_user_name}}</td>
                         <td>{{$data->phone}}</td>
@@ -63,12 +72,11 @@
                        
                        <td>
                        <form>
-                        <a class="btn btn-success btn-sm" href="{{route('updateUser',$data->id)}}">Edit</a>
-                        <button class="btn btn-danger btn-sm" >delete</button>
+                            <a class="btn btn-success btn-sm" href="{{route('updateUser',$data->id)}}">Edit</a>
+                            <a class="btn btn-danger btn-sm"data-toggle="modal" id="btn-delete" data-target="#deleteModal"
+                                data-attr="{{route('delete',$data->id)}}">Delete</a>
                        </form>
-                       </td>
-                       
-                        
+                       </td>  
                   
                    </tr>
                    @endforeach
@@ -84,80 +92,103 @@
         </div>        
     </div>
 </div>
-
-<!-- Modal -->
-<div class="modal fade  " id="userModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">User Detail</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <div class="row">
-        <table class="table">
-          <tbody>
-            <tr class="first" >
-              <td ><label >Name :</label></td>
-              <td >HTML</td>
-              <td ></td>
-            </tr>
-            <tr>
-              <td><label for="">Email :</label></td>
-              <td>may@gmail.com</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label for="">User Type:</label></td>
-              <td>Admin</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label for="">Date of Birth :</label></td>
-              <td>12-03-1998</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label for="">Profile :</label></td>
-              <td><img class="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="preview_image"/></td>
-            </tr>
-            <tr>
-              <td><label for="">Address :</label></td></td>
-              <td><textarea>No E1 ShwePone Nyut Street,Yangon</textarea></td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label for="">Phone :</label></td></td>
-              <td>09-798956236</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label for="">Created User :</label></td></td>
-              <td>User1</td>
-              <td></td>
-            </tr>
-            <tr>
-              <td><label for="">Created at :</label></td></td>
-              <td>12-06-2021</td>
-              <td></td>
-            </tr>
-            <tr class="last">
-              <td><label for="">Updated at :</label></td></td>
-              <td>12-12-2020</td>
-              <td></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">OK</button>
-        
-      </div>
+	
+    <!-- small detail modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-head-color">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="detailBody">
+                    <div>
+                        <!-- the result to be displayed apply here -->
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
-<!-- End Modal-->
+  <!--end detail modal-->
+
+    <!-- delete modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-head-color">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="deleteBody">
+                    <div>
+                        <!-- the result to be displayed apply here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!--end delete modal-->
+  <script>
+        // display a modal (small modal)
+        $(document).on('click', '#btn-detail', function(event) {
+            event.preventDefault();
+            $('#detailBody').html('');
+            let href = $(this).attr('data-attr');
+           
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                  //  $('#loader').show();
+                },
+                // return the result
+                success: function(result) {
+                    $('#detailModal').modal("show");
+                    $('#detailBody').html(result).show();
+                },
+                complete: function() {
+                   // $('#loader').hide();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                    //$('#loader').hide();
+                },
+                timeout: 8000
+            })
+        });
+
+        //display delete modal
+         
+         $(document).on('click', '#btn-delete', function(event) {
+            event.preventDefault();
+            $('#deleteBody').html('');
+            let href = $(this).attr('data-attr');
+           
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                 
+                },
+                // return the result
+                success: function(result) {
+                    $('#deleteModal').modal("show");
+                    $('#deleteBody').html(result).show();
+                },
+                complete: function() {
+            
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                  
+                },
+                timeout: 8000
+            })
+        });
+</script>
+
 @endsection

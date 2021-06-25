@@ -30,6 +30,15 @@
             </button>
         </div>
         @endif
+                
+        @if ($message = Session::get('fail'))
+        <div class="col-md-11 alert alert-success">
+            <span>{{ $message }}</span>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
       
         <div class="container mt-2">
             <table class="table table-striped table-responsive-sm table-bordered mb-5">
@@ -38,8 +47,8 @@
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Description</th>
-                        <th scope="col">Posted User</th>
-                        <th scope="col">Posted Date</th>
+                        <th scope="col">Created User</th>
+                        <th scope="col">Created Date</th>
                         @if(Auth::user())
                         <th scope="col" ></th>
                         @else                        
@@ -50,17 +59,19 @@
                 <tbody>
                     @foreach($postData as $key=>$data)
                     <tr>
-                        <th scope="row" style="width:1px; white-space:nowrap;">{{ ++$i}}</th>
-                        <td><a href="#" data-toggle="modal" data-target="#postModal">{{ $data->title }}</a></td>
+                        <th scope="row" style="width:1px; white-space:nowrap;">{{ ++$i}} </th>
+                        <td><a data-toggle="modal" id="detail" data-target="#detailModal"
+                                data-attr="{{route('showPost',$data->id)}}" >{{ $data->title }}</a></td>
                         <td>{{ \Str::limit($data->description,50) }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{date_format($data->created_at,'Y-m-d')}} </td>
                         @if(Auth::user())
                         <td style="width:1px; white-space:nowrap;">
-                            <form action="{{route('deletePost',$data->id)}}" method="POST">                               
-                            <a class="btn btn-sm btn-success" href="{{ route('editPost',$data->id) }}">Edit</a>   
-                            @csrf                                
-                            <input type="submit" class="btn btn-sm btn-danger" value="Delete"/>
+                            <form >                               
+                                <a class="btn btn-sm btn-success" href="{{ route('editPost',$data->id) }}">Edit</a>   
+                                @csrf                                
+                                <a class="btn btn-danger btn-sm"data-toggle="modal" id="btn-delete" data-target="#deleteModal"
+                                data-attr="{{route('deletePost',$data->id)}}">Delete</a>
                             </form>
                         </td> 
                         @else                        
@@ -81,45 +92,100 @@
     </div>
 </div>
 	
-
-
-
-<!-- Modal -->
-<div class="modal fade " id="postModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Post Detail</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">       
-        <div class="form-group input-group">
-          <label for="">Title :&nbsp;</label>
-          <label> $post->title</label>
+    <!-- small modal -->
+    <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-head-color">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="detailBody">
+                    <div>
+                        <!-- the result to be displayed apply here -->
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group input-group">
-          <label for="">Description:</label>
-          <label class='col-md-10'> $post->description</label>
-        </div>
-        <div class=" input-group">
-          <label for="status">Status : &nbsp;</label>
-          <label for="">Active</label>
-        </div>
-        <div class="input-group">
-          <label for="">Created User : &nbsp;</label>
-          <label> Mu Mu</label>
-        </div>         
-       
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-        
-      </div>
     </div>
-  </div>
-</div>
-<!-- End Modal-->
+  <!--end detail modal-->
+      <!-- delete modal -->
+      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header modal-head-color">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="deleteBody">
+                    <div>
+                        <!-- the result to be displayed apply here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  <!--end delete modal-->
+<script>
+        // display a modal (small modal)
+        $(document).on('click', '#detail', function(event) {
+            event.preventDefault();
+            $('#detailBody').html('');
+            let href = $(this).attr('data-attr');
+           
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                  //  $('#loader').show();
+                },
+                // return the result
+                success: function(result) {
+                    $('#detailModal').modal("show");
+                    $('#detailBody').html(result).show();
+                },
+                complete: function() {
+                   // $('#loader').hide();
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                    //$('#loader').hide();
+                },
+                timeout: 8000
+            })
+        });
+
+        //display delete modal         
+        $(document).on('click', '#btn-delete', function(event) {
+            event.preventDefault();
+            $('#deleteBody').html('');
+            let href = $(this).attr('data-attr');
+           
+            $.ajax({
+                url: href,
+                beforeSend: function() {
+                 
+                },
+                // return the result
+                success: function(result) {
+                    $('#deleteModal').modal("show");
+                    $('#deleteBody').html(result).show();
+                },
+                complete: function() {
+            
+                },
+                error: function(jqXHR, testStatus, error) {
+                    console.log(error);
+                    alert("Page " + href + " cannot open. Error:" + error);
+                  
+                },
+                timeout: 8000
+            })
+        });
+</script>
 
 @endsection

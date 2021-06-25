@@ -15,7 +15,7 @@
                                 Name :
                             </div>
                             <div class="col-md-9">
-                                {{$userData->name}}     
+                                {{$userData->name}}  
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -64,9 +64,11 @@
                     
                     </div>
                     <div class="col-md-4">
-                        <img class="profile_preview" src="{{URL::asset('/images/profile.jpeg')}}" id="preview_image"/>
-                        <label for="profile_photo">{{$userData->profile_photo}}</label>
+                    
+                        <img  class="profile_preview"  src="{{ asset('storage/images/'.$image)}}" id="preview_image">
+                       
                     </div>
+                    
                 </div>
             </div>
 
@@ -80,7 +82,15 @@
                 </div>
             </div>
     </div>
-    <input type="hidden" id="created_user_id" name="created_user_id" value="{{Auth::id()}}"/>
-    <input type="hidden" id="updated_user_id" name="updated_user_id" value="{{Auth::id()}}"/>
+
+    <input type="hidden"  name="profile_photo" value="{{$image}}" />
+    <input type="hidden"  name="name" value="{{$userData->name}}" />
+    <input type="hidden"  name="email" value="{{$userData->email}}" />
+    <input type="hidden"  name="address" value="{{$userData->address}}" />
+    <input type="hidden"  name="date_of_birth" value="{{$userData->date_of_birth}}" />
+   
+    <input type="hidden"  name="phone" value="{{$userData->phone}}" />
+    <input type="hidden"  name="password" value="{{$userData->password}}" />
+
 </form>
 @endsection

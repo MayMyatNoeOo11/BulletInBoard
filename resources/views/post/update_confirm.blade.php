@@ -15,7 +15,7 @@
 
   <div class="row mt-1">
     <div class="col-md-12">      
-      <form action="{{route('updateConfirmPost','2')}}" method="post">
+      <form action="{{route('updateConfirmPost',$post->id)}}" method="post">
       @csrf
       
 

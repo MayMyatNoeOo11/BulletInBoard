@@ -63,7 +63,7 @@ Route::group(['middleware' => ['auth','verify.admin']], function(){
     Route::get('/user/delete/{id}',[UserController::class,'delete'])->name('delete');
     Route::post('/user/delete-user',[UserController::class,'delete_user'])->name('deleteUser');
 
-    Route::get('/user/search',[UserController::class,'search'])->name('search');
+  
     Route::get('/post/import-form',[PostController::class,'importForm'])->name('importForm');
     Route::post('/post/import',[PostController::class,'import'])->name('import');
 

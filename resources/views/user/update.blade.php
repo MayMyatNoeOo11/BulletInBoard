@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
 
-                                    @if(Auth::user()->type=='0')
+                                    
                                     <div class="form-group row">
                                         <label for="type" class="col-md-3 col-form-label text-md-right">User Type</label>
 
@@ -72,7 +72,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    @endif
+                                    
                                     <div class="form-group row">
                                         <label for="phone" class="col-md-3 col-form-label text-md-right">Phone</label>
 
@@ -92,7 +92,7 @@
 
                                         <div class="col-md-6">
 
-                                        <input class="form-control" id="date_of_birth" name="date_of_birth" value="{{$userData->date_of_birth}}" type="date"/>
+                                        <input class="form-control dob_datepicker" id="date_of_birth" name="date_of_birth" value="{{$userData->date_of_birth}}" type="text" autocomplete="off"/>
                             
 
                                             @error('date_of_birth')
@@ -178,6 +178,14 @@
    
 <script type="text/javascript">
 
+
+$('.dob_datepicker').datepicker({
+    format: 'yyyy/mm/dd',
+    startDate: '1990-01-01',
+    constrainInput: false ,
+    autoClose:true,
+    endDate:new Date()
+});
 
 </script>    
 @endsection

@@ -25,10 +25,7 @@ function validateCSVFileType(event,upload_file_id){
         if (element.files[0].size > 2097152) {
             alert("Try to upload csv file less than 2MB!");
             document.getElementById(upload_file_id).value="";
-        } else {
-           
-        } 
-
+        }
 
     }else{
         

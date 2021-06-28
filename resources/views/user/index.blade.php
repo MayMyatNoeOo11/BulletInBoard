@@ -35,8 +35,8 @@
         
                 <input class="form-control mr-2" placeholder="Name" style="padding-left:2px" type="text" name="name" id="name"  value="{{$name}}"/>
                 <input class="form-control mr-2" placeholder="Email" type="text" name="email" id="email"  value="{{$email}}"/>          
-                <input class="form-control mr-2" placeholder="Created From Date" type="date" name="created_from_date" id="created_from_date" value="{{$created_from_date}}"/>
-                <input class="form-control mr-2" placeholder="Created To Date" type="date" name="created_to_date" id="created_to_date" value="{{$created_to_date}}" />
+                <input class="form-control mr-2 from_datepicker" placeholder="Created From Date" type="text" name="created_from_date" id="created_from_date" value="{{$created_from_date}}" autocomplete="off" />
+                <input class="form-control mr-2 to_datepicker" placeholder="Created To Date" type="text" name="created_to_date" id="created_to_date" value="{{$created_to_date}}" autocomplete="off"  />
                 <button type="submit" name="search" id="btn-search" class=" btn btn-large btn-info mr-2" onclick="search()"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
            </form>
                 <button type="button" name="clear" id="btn-clear" class="btn btn-large btn-info  mr-5" onclick="clearSearchBox()">Clear</button>
@@ -206,7 +206,20 @@
   
   //  location.reload();
 }
-
+$('.from_datepicker').datepicker({
+    format: 'yyyy/mm/dd',
+    startDate: '1990-01-01',
+    constrainInput: false ,
+    autoClose:true,
+    endDate:new Date()
+});
+$('.to_datepicker').datepicker({
+    format: 'yyyy/mm/dd',
+    startDate: '1990-01-01',
+    constrainInput: false ,
+    autoClose:true,
+    endDate:new Date()
+});
 
 </script>
 

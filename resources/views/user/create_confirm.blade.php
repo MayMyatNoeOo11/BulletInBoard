@@ -46,6 +46,19 @@
 
                         <div class="row mb-3">
                             <div class="col-md-3">
+                                    Type :
+                            </div>
+                            <div class="col-md-9">
+                                @if($userData->type=='1')
+                                User
+                                @else
+                                Admin
+                                @endif
+                            </div>
+                         </div>
+
+                        <div class="row mb-3">
+                            <div class="col-md-3">
                                 Phone :
                             </div>
                             <div class="col-md-9">
@@ -63,15 +76,11 @@
                         </div>  
                     
                     </div>
-                    <div class="col-md-4">
-                    
-                        <img  class="profile_preview"  src="{{ asset('storage/images/'.$image)}}" id="preview_image">
-                       
-                    </div>
-                    
+                    <div class="col-md-4">                    
+                        <img  class="profile_preview"  src="{{ asset('storage/images/'.$image)}}" id="preview_image">                       
+                    </div>                    
                 </div>
             </div>
-
         </div>
         <div class="row mt-2">
                 <div class="col-md-4 offset-md-4">
@@ -88,7 +97,7 @@
     <input type="hidden"  name="email" value="{{$userData->email}}" />
     <input type="hidden"  name="address" value="{{$userData->address}}" />
     <input type="hidden"  name="date_of_birth" value="{{$userData->date_of_birth}}" />
-   
+    <input type="hidden" value="{{$userData->type}}" name="type" />
     <input type="hidden"  name="phone" value="{{$userData->phone}}" />
     <input type="hidden"  name="password" value="{{$userData->password}}" />
 

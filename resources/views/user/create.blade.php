@@ -90,7 +90,7 @@
 
                             <div class="col-md-6">
 
-                            <input class="form-control @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth"  type="date" value="{{ old('date_of_birth') }}" required autocomplete="phone" autofocus/>
+                            <input class="form-control dob_datepicker @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth"  type="text" value="{{ old('date_of_birth') }}" required autocomplete="off" autofocus/>
                   
 
                                 @error('date_of_birth')
@@ -100,6 +100,23 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                                        <label for="type" class="col-md-4 col-form-label text-md-right">User Type</label>
+
+                                        <div class="col-md-6">  
+                                            <select name="type" id="type" class="form-control">
+                                                <option value="0" >Admin</option>
+                                                <option value="1" selected>User</option>
+                                            </select>
+                                     
+                                            @error('type')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                            </div>        
 
                         <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">Phone</label>
@@ -172,5 +189,18 @@
             </div>
         </div>
         <div class="col-md-2"></div>
-        </div>    
+        </div>   
+           
+<script type="text/javascript">
+
+
+$('.dob_datepicker').datepicker({
+    format: 'yyyy/mm/dd',
+    startDate: '1990-01-01',
+    constrainInput: false ,
+    autoClose:true,
+    endDate:new Date()
+});
+
+</script>  
 @endsection

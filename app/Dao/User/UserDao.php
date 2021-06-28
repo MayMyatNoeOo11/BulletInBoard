@@ -35,18 +35,23 @@ class UserDao implements UserDaoInterface
         {
         $result=$result->where('u1.email','LIKE',"%$email%");
         }
+        if((!empty($created_from_date)) && (!empty($created_to_date)))
+        {
+         //   $result=$result->whereBetween('u1.created_at',[$created_from_date,$created_to_date]);
+         $result=$result
+         ->whereDate('u1.created_at', '>=', $created_from_date)
+         ->whereDate('u1.created_at', '<=', $created_to_date);
+        
+        }  
         if(!empty($created_from_date) && empty($created_to_date))
         {
-        $result=$result->whereDate('u1.created_at','>=',$created_from_date);
+        $result=$result->whereDate('u1.created_at','>=',$created_from_date); 
         }
         if(!empty($created_to_date) &&  empty($created_from_date))
         {
-            $result=$result->whereDate('u1.created_at','<=',$created_to_date);
+            $result=$result->whereDate('u1.created_at','<=',$created_to_date); 
         }
-        if(!empty($created_from_date) && !empty($created_to_date))
-        {
-            $result=$result->whereBetween('u1.created_at',[$created_from_date,$created_to_date]);
-        }   
+ 
 
         $userData=$result->paginate(5);
         return $userData;
@@ -81,7 +86,7 @@ class UserDao implements UserDaoInterface
         $user->phone=$request->phone;
         $user->address=$request->address;  
         $user->password=Hash::make($request->password) ;     
-        $user->type='1';  
+        $user->type=$request->type;//'1';  
         $user->date_of_birth=$request->date_of_birth;
         $user->created_user_id=Auth::user()->id;  
         $user->updated_user_id=Auth::user()->id;  

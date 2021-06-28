@@ -22,7 +22,7 @@
     <input type="hidden" id="title" name="title" value="{{$post->title}}" />
     <input type="hidden" id="description" name="description" value=" {{$post->description}}" />  
     <input type="hidden" name="created_user_id" value="{{$post->created_user_id}}" id="created_user_id"/>
-    <input type="hidden" name="status"  value="{{$post->status}}" id="status" />
+    <input type="hidden" name="status"  value="{{$postStatus}}" id="status" />
       
     <div class="col-md-8 offset-md-2 mt-2">
         <div class="row card">
@@ -42,7 +42,7 @@
                                 Status :
                             </div>
                             <div class="col-md-9">
-                            @if($post->status=='1')
+                            @if($postStatus=='1')
                               Active
                             @else
                               Not Active

@@ -63,6 +63,7 @@ class UserController extends Controller
     
     public function index(Request $request)
     {   
+        
           $userData=$this->userService->getUserList($request);
 
           $name=$request->input('name');
@@ -115,9 +116,9 @@ class UserController extends Controller
     {     
 
      $request->validate([
-        'name'=>'required',
+        'name'=>'required|unique:users',
         'email' => 'required|unique:users',
-        'password' => 'required',
+        
         'profile_photo' => 'required|image|mimes:jpeg,png,jpg,jfif,gif,svg|max:2048',//|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'date_of_birth'=>'required|date',
         'password' => 'required|min:6|confirmed',
@@ -134,7 +135,7 @@ class UserController extends Controller
      * 
      */
     public function confirm_user(Request $request)
-    {     
+    {    
         $this->userService->saveUser($request);
         return redirect()->route('showAllUsers')->with('success','New user is created successfully.');
     }
@@ -150,7 +151,7 @@ class UserController extends Controller
     public function update_user(Request $request,$id)
     {
       $request->validate([
-        'name'=>'required',
+        'name'=>['required',Rule::unique('users')->ignore($id)],
         'email' => ['required', Rule::unique('users')->ignore($id)],
         'date_of_birth'=>'required|date'
     ]);
@@ -238,7 +239,9 @@ class UserController extends Controller
         'new_confirm_password' => ['required','min:6','same:new_password']
    ]);
    $is_change_password=$this->userService->changePassword($request->id,$request->new_password);
-   return redirect()->route('showAllUsers')->with('success','Change Password Successful.');
+  
+  // return redirect()->route('showAllUsers')->with('success','Change Password Successful.');
+  return redirect()->route('update', ['id' => $id]);
 
     }
 }

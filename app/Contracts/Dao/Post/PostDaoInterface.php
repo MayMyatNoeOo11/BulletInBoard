@@ -5,7 +5,7 @@ namespace App\Contracts\Dao\Post;
 
 interface PostDaoInterface
 {
-    public function getExportList();
+    
     public function getListForAdmin($searchValue);
     public function getListForUser($id,$searchValue);
     public function getListForGuest($searchValue);

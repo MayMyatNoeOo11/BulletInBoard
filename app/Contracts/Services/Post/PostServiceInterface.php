@@ -5,7 +5,7 @@ namespace App\Contracts\Services\Post;
 
 interface PostServiceInterface
 {
-    public function getExportList();
+   
     public function getListForAdmin($searchValue);
     public function getListForUser($id,$searchValue);
     public function getListForGuest($searchValue);

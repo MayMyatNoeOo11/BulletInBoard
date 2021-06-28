@@ -64,12 +64,16 @@
 
                     @if(Auth::user()->type=='0')
                     <div class="form-group">
-                        <label for="status">Active Status</label>             									
-                        <input style="margin-left:20px" class=" form-check-input" type="checkbox" name="status" value="" id="status" {{ ($postData->status == 1 ? 'checked' : '')}}>
-                        <input type="hidden" name="status" value="0"/>			
+                        <label >Active Status</label>             									
+                        <input style="margin-left:20px" 
+                        class=" form-check-input" type="checkbox" 
+                        name="status" 
+                          @if($postData->status ) checked @endif/>
+                       			
                     </div>	
                     @else
-                        <input type="hidden" name="status" value="1"/>
+                    <input type="hidden" name="status" value="{{$postData->status}}"/>
+                        
                     @endif
                     <button type="submit" class="btn btn-lg btn-success">Update</button>
                     <a href="{{route('showAllPosts')}}" class="btn btn-lg">Cancel</a>

@@ -10,12 +10,7 @@ use App\Contracts\Dao\Post\PostDaoInterface;
 class PostDao implements PostDaoInterface
 {
 
-    public function getExportList()
-    {
 
-
-        
-    }
     public function getListForAdmin($searchValue)
     {
         $postData=Post::leftjoin('users','users.id','=','posts.created_user_id')
@@ -33,13 +28,17 @@ class PostDao implements PostDaoInterface
     {
         $postData=Post::leftjoin('users','users.id','=','posts.created_user_id')
         ->select('posts.*','users.name')
-        ->where('posts.created_user_id','=',$id)
+        ->where('posts.created_user_id','=',$id);
+        if(!empty($searchValue))
+        {
+        $postData=$postData
         ->where('users.name', 'LIKE', "%$searchValue%")
         ->orWhere('posts.title', 'LIKE', "%$searchValue%")
-        ->orWhere('posts.description', 'LIKE', "%$searchValue%")        
-        ->paginate(10); 
+        ->orWhere('posts.description', 'LIKE', "%$searchValue%") ;       
+        
+    }
 
-        return $postData;
+        return $postData->paginate(10); 
     }
 
     public function getListForGuest($searchValue)
@@ -47,13 +46,16 @@ class PostDao implements PostDaoInterface
         $postData=Post::leftjoin('users','users.id','=','posts.created_user_id')
         ->select('posts.*','users.name')
         ->where('posts.status','1')
-        ->whereNull('posts.deleted_at')
+        ->whereNull('posts.deleted_at');
+
+        if(!empty($searchValue))
+        {
+        $postData=$postData
         ->where('users.name', 'LIKE', "%$searchValue%")
         ->orWhere('posts.title', 'LIKE', "%$searchValue%")
-        ->orWhere('posts.description', 'LIKE', "%$searchValue%") 
-       ->paginate(10); 
-
-        return $postData;
+        ->orWhere('posts.description', 'LIKE', "%$searchValue%") ;  
+        }
+        return $postData->paginate(10); 
     }
     public function getPostbyId($id)
     {

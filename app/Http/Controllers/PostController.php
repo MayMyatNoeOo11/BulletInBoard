@@ -11,6 +11,7 @@ use App\Exports\PostsExport;
 use App\Imports\PostsImport;
 use Maatwebsite\Excel\Facades\Excel;
 
+
 class PostController extends Controller
 {
   public $postService;
@@ -32,11 +33,7 @@ class PostController extends Controller
       return view('post.show', compact('post'));
     }
 
-    public  function search($data,$searchValue)
-    {
-        
-        
-    }
+
 
     /**
      * Show active Posts List for User itself, Show all posts for Admin
@@ -51,10 +48,11 @@ class PostController extends Controller
       $userType=Auth::user()->type;
          if($userType=='0')
          {
+           
            $postData=$this->postService->getListForAdmin($searchText);
          }       
          else 
-         {
+         { 
           $postData=$this->postService->getListForUser(Auth::user()->id,$searchText);       
           } 
       }       
@@ -79,12 +77,12 @@ class PostController extends Controller
 
      /**
       * Create Post
-      * Return create_confirm view
+      * Return create_confirm 
       */
      public function create_post(Request $request)
      {
         $request->validate([
-            'title'=>'bail|required|unique:posts|max:255',
+            'title'=>'required|max:255|unique:posts,title,NULL,id,deleted_at,NULL',
             'description'=>'required'
         ]);
 
@@ -102,7 +100,7 @@ class PostController extends Controller
       {       
 
         $request->validate([
-            'title'=>'bail|required|unique:posts|max:255',
+            'title'=>'required|max:255|unique:posts,title,NULL,id,deleted_at,NULL',
             'description'=>'required'
         ]);
 
@@ -129,7 +127,25 @@ class PostController extends Controller
     ]);
     $post=$request;
 
-    return view('post.update_confirm',compact('post'));
+    if($request->has('status'))
+    {
+     
+      if($request->status=="0")
+      {
+      $post_status="0";      
+      }
+      else
+      {
+      $post_status="1";  
+      }
+
+    }
+    else{
+      $post_status="0";     
+    }   
+
+
+    return view('post.update_confirm',compact('post'))->with('postStatus',$post_status);
     }
     
     /**

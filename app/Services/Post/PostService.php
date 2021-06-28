@@ -11,10 +11,6 @@ class PostService implements PostServiceInterface
         $this->postDao = $post_dao_interface;
     }
 
-    public function getExportList()
-    {
-        return $this->postDao->getExportList();
-    }
 
     public function getListForAdmin($searchValue)
     {

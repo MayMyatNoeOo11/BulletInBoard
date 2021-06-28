@@ -11,19 +11,21 @@
     <div class="row justify-content-center">  
         <h2>Posts</h2>   
         <div class="col-md-11" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
-            <input  style="padding-left:5px" type="text" name="search" id="txt-search" />
-            <a  name="search" id="btn-search" class="btn btn-large btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</a>
-            <a  name="download" id="btn-download" class="btn btn-large btn-info"><i class="bi bi-download"></i>&nbsp;&nbsp;Download</a> 
+        <form action="{{route('showAllPosts')}}" method="get">
+            <input  style="padding-left:5px" type="text" name="search" id="txt-search" value="{{$searchText}}" />
+            <button type="submit" id="btn-search" class="btn btn-large btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
+            <a   href="{{route('export')}}" name="download" id="btn-download" class="btn btn-large btn-info"><i class="bi bi-download"></i>&nbsp;&nbsp;Download</a> 
             @if(Auth::user())
-              <a href="{{route('uploadPost')}}" name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>            
+              <a href="{{route('importForm')}}" name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>            
               <a  href="{{route('create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>  
-           @endif         
+           @endif      
+         </form>   
   
         
         </div>
         
         @if ($message = Session::get('success'))
-        <div class="col-md-11 alert alert-success">
+        <div class="col-md-11 alert alert-success" id="success-msg">
             <span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -32,7 +34,7 @@
         @endif
                 
         @if ($message = Session::get('fail'))
-        <div class="col-md-11 alert alert-success">
+        <div class="col-md-11 alert alert-success" id="fail-msg">
             <span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -60,7 +62,7 @@
                     @foreach($postData as $key=>$data)
                     <tr>
                         <th scope="row" style="width:1px; white-space:nowrap;">{{ ++$i}} </th>
-                        <td><a data-toggle="modal" id="detail" data-target="#detailModal"
+                        <td><a data-toggle="modal" id="btn-detail" data-target="#detailModal"
                                 data-attr="{{route('showPost',$data->id)}}" >{{ $data->title }}</a></td>
                         <td>{{ \Str::limit($data->description,50) }}</td>
                         <td>{{ $data->name }}</td>
@@ -132,7 +134,7 @@
   <!--end delete modal-->
 <script>
         // display a modal (small modal)
-        $(document).on('click', '#detail', function(event) {
+        $(document).on('click', '#btn-detail', function(event) {
             event.preventDefault();
             $('#detailBody').html('');
             let href = $(this).attr('data-attr');
@@ -186,6 +188,8 @@
                 timeout: 8000
             })
         });
+
+
 </script>
 
 @endsection

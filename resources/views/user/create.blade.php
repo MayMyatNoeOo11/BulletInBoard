@@ -135,7 +135,7 @@
 
                             <div class="col-md-6">
                                 <input id="profile_photo" name="profile_photo"  type="file" 
-                                 accept=".png, .jpg, .jpeg" onchange="validateFileType(event)"
+                                 accept=".png, .jpg, .jpeg,.jfif" onchange="validateFileType(event)"
                                   class="form-control @error('profile_photo') is-invalid @enderror" 
                                   value="{{ old('profile_photo') }}"  required >
 

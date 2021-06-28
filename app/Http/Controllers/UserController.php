@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\DB;
 use App\Contracts\Services\User\UserServiceInterface;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Config;
+use App\Rules\MatchOldPassword;
+use Illuminate\Support\Facades\Hash;
 use File;
 class UserController extends Controller
 {
@@ -18,10 +20,32 @@ class UserController extends Controller
   {
       $this->userService = $user_service_interface;
   } 
- 
- //$photo_destination_path=Config::get('constants.options.profile_photo_destination_path');
+   //$photo_destination_path=Config::get('constants.options.profile_photo_destination_path');
+  public function photo_store(Request $request)
+  {
+      
+      if($request->hasFile('profile_photo'))
+      {               // Get image file
+           $image = $request->file('profile_photo'); 
+           $destinationPath = 'storage/images/'; // upload path
+           $profileImage = date('YmdHis') . "_Profile." . $image->getClientOriginalExtension();
+           $file_full_path=$destinationPath.'/'.$profileImage;
+           $image->move($destinationPath, $profileImage); 
 
+       return $profileImage;
+      // $image->move(public_path('images'), $imageName);//store in public
+      }
+      else
+      {
+          $profileImage="";
 
+      }
+      return $profileImage;
+  }
+  
+ /**\
+  * Show user detail
+  */
   public function show($id)
   {   
        $user=$this->userService->getUserInfo($id);
@@ -34,17 +58,30 @@ class UserController extends Controller
      *
      * @return void
      */
+
     
-    public function index()
-    {  
-        $userData=$this->userService->getUserList();
-            
+    
+    public function index(Request $request)
+    {   
+          $userData=$this->userService->getUserList($request);
+
+          $name=$request->input('name');
+          $email=$request->input('email');
+          $created_from_date=$request->input('created_from_date');
+          $created_to_date=$request->input('created_to_date');
+
+           // dd($userData);
            return view('user.index',compact('userData'))
-           ->with('k',(request()->input('page',1)-1)*5);  
+           ->with('k',(request()->input('page',1)-1)*5)
+           ->with('name',$name)
+           ->with('email',$email)
+           ->with('created_from_date',$created_from_date)
+           ->with('created_to_date',$created_to_date);
+  
     }
 
     /**
-     *  Common Screen View     
+     *  Common Menu Screen View     
      * 
      */
     public function common()
@@ -69,27 +106,7 @@ class UserController extends Controller
         return view('user.create');
     }
 
-    public function photo_store(Request $request)
-    {
-        
-        if($request->hasFile('profile_photo'))
-        {               // Get image file
-             $image = $request->file('profile_photo'); 
-             $destinationPath = 'storage/images/'; // upload path
-             $profileImage = date('YmdHis') . "_Profile." . $image->getClientOriginalExtension();
-             $file_full_path=$destinationPath.'/'.$profileImage;
-             $image->move($destinationPath, $profileImage); 
-
-         return $profileImage;
-        // $image->move(public_path('images'), $imageName);//store in public
-        }
-        else
-        {
-            $profileImage="";
-
-        }
-        return $profileImage;
-    }
+  
     /**
      *  Create User   
      * POST method
@@ -101,7 +118,7 @@ class UserController extends Controller
         'name'=>'required',
         'email' => 'required|unique:users',
         'password' => 'required',
-        'profile_photo' => 'required',//|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        'profile_photo' => 'required|image|mimes:jpeg,png,jpg,jfif,gif,svg|max:2048',//|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'date_of_birth'=>'required|date',
         'password' => 'required|min:6|confirmed',
         'password_confirmation' => 'required| min:6'
@@ -196,12 +213,32 @@ class UserController extends Controller
     }
 
     /**
-     * Change Password View
+     * Change Password Form
      * Get Method
      */
-    public function changePassword($id)
+    public function changePasswordForm($id)
     {
-        $userData=User::Find($id);
+        $userData=$this->userService->getUserbyId($id);
+        //$password= Hash::make('$userData->password');
+      //  $password=Hash::make('123');
         return view('user.change_password',compact('userData'));
+   
+    }
+
+        /**
+     * Change Password 
+     * Post Method
+     */
+    public function changePassword(Request $request)
+    {
+        
+     $request->validate([
+        'old-password' =>['required',new MatchOldPassword($request->password)],
+        'new_password' => ['required','min:6'],
+        'new_confirm_password' => ['required','min:6','same:new_password']
+   ]);
+   $is_change_password=$this->userService->changePassword($request->id,$request->new_password);
+   return redirect()->route('showAllUsers')->with('success','Change Password Successful.');
+
     }
 }

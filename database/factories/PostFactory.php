@@ -34,8 +34,8 @@ class PostFactory extends Factory
             'description' => $description,
             'status' => '1',
             'created_user_id'=>'1',            
-            'updated_user_id' => '1',
-            'deleted_user_id'=>'1'
+            'updated_user_id' => '1'
+            
         ];
     }
 }

@@ -8,16 +8,22 @@
                 <div class="card-header">Change Password</div>
 
                 <div class="card-body">
-                    <form method="POST" action="">
+                    <form method="POST" action="{{route('changePassword')}}">
                         @csrf                       
-
+                        <input type="hidden" name="id" value="{{$userData->id}}" />
+                        <input type="hidden" name="password" value="{{$userData->password}}"/>
+                        @if(Auth::user()->id==$userData->id)
+                        @else
+                       
+                        <h3>Change Password for User-<span><strong>{{$userData->name}}</strong></span></h3>
+                        @endif
                         <div class="form-group row">
                             <label for="old_password" class="col-md-4 col-form-label text-md-right">Old Password</label>
 
                             <div class="col-md-6">
-                                <input  id="old_password" type="password"  class="form-control " name="old-password" value="{{ $userData->password}}" readonly>
+                                <input  id="old_password" type="password"  class="form-control @error('old-password') is-invalid @enderror " name="old-password" value="" >
 
-                                @error('password')
+                                @error('old-password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -29,9 +35,9 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">New Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+                                <input id="password" type="password" class="form-control @error('new_password') is-invalid @enderror" name="new_password" required >
 
-                                @error('password')
+                                @error('new_password')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -43,7 +49,13 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
 
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+                                <input id="password-confirm" type="password" class="form-control @error('new_confirm_password') is-invalid @enderror" name="new_confirm_password" required>
+                                
+                                @error('new_confirm_password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>
 
@@ -63,13 +75,6 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function(){
-       
-       
 
-
-    });
-</script>
 @endsection
 

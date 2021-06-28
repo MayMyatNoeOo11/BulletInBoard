@@ -4,7 +4,7 @@
     var fileName = document.getElementById("profile_photo").value;
     var idxDot = fileName.lastIndexOf(".") + 1;
     var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
-    if (extFile=="jpg" || extFile=="jpeg" || extFile=="png"){    
+    if (extFile=="jpg" || extFile=="jpeg" || extFile=="png" ||extFile=="jfif"){    
 
        $('#profile_preview_image').attr('src',URL.createObjectURL(event.target.files[0]));
     }else{
@@ -21,7 +21,7 @@ function validateCSVFileType(event,upload_file_id){
     var extFile = fileName.substr(idxDot, fileName.length).toLowerCase();
     if (extFile=="csv" ){  
        
-        alert('filesize='+element.files[0].size);
+       // alert('filesize='+element.files[0].size);
         if (element.files[0].size > 2097152) {
             alert("Try to upload csv file less than 2MB!");
             document.getElementById(upload_file_id).value="";
@@ -36,6 +36,16 @@ function validateCSVFileType(event,upload_file_id){
         document.getElementById(upload_file_id).value="";
     }   
 }
+//fade out message
+setTimeout(function() {
+    $('#success-msg').fadeOut('fast');
+}, 3000);
+        //fade out message
+setTimeout(function() {
+    $('#fail-msg').fadeOut('fast');
+}, 3000);
+
+
 
 
 

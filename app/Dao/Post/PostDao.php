@@ -9,32 +9,49 @@ use App\Contracts\Dao\Post\PostDaoInterface;
 
 class PostDao implements PostDaoInterface
 {
-    public function getListForAdmin()
+
+    public function getExportList()
+    {
+
+
+        
+    }
+    public function getListForAdmin($searchValue)
     {
         $postData=Post::leftjoin('users','users.id','=','posts.created_user_id')
-        ->select('posts.*','users.name')    
-        ->paginate(10);
+        ->select('posts.*','users.name')
+         ->where('users.name', 'LIKE', "%$searchValue%")
+        ->orWhere('posts.title', 'LIKE', "%$searchValue%")
+        ->orWhere('posts.description', 'LIKE', "%$searchValue%")
+        ->paginate(10); 
+        //->paginate(10);
 
         return $postData;
     }
 
-    public function getListForUser($id)
+    public function getListForUser($id,$searchValue)
     {
         $postData=Post::leftjoin('users','users.id','=','posts.created_user_id')
         ->select('posts.*','users.name')
         ->where('posts.created_user_id','=',$id)
-        //->where('posts.status','1')
+        ->where('users.name', 'LIKE', "%$searchValue%")
+        ->orWhere('posts.title', 'LIKE', "%$searchValue%")
+        ->orWhere('posts.description', 'LIKE', "%$searchValue%")        
         ->paginate(10); 
 
         return $postData;
     }
 
-    public function getListForGuest()
+    public function getListForGuest($searchValue)
     {
         $postData=Post::leftjoin('users','users.id','=','posts.created_user_id')
         ->select('posts.*','users.name')
         ->where('posts.status','1')
-        ->paginate(10);  
+        ->whereNull('posts.deleted_at')
+        ->where('users.name', 'LIKE', "%$searchValue%")
+        ->orWhere('posts.title', 'LIKE', "%$searchValue%")
+        ->orWhere('posts.description', 'LIKE', "%$searchValue%") 
+       ->paginate(10); 
 
         return $postData;
     }
@@ -52,6 +69,7 @@ class PostDao implements PostDaoInterface
                 
         return $postData;
     }
+
     public function updatePost($request,$id)
     {
         $old_post_data=Post::find($id);
@@ -83,8 +101,19 @@ class PostDao implements PostDaoInterface
     public function deletePost($id)
     {
                     //delete
-                    $is_deleted=DB::table('posts')->where('id', '=', $id)->delete();
+                    //$is_deleted=DB::table('posts')->where('id', '=', $id)->delete();
+                    Post::find($id)->update(['deleted_user_id' => Auth::user()->id]);
+                    $is_deleted=  Post::find($id)->delete();
                     return $is_deleted;
+    }
+
+    public function search($searchValue)
+    {
+      
+
+
+        return $postData;
+
     }
 
 

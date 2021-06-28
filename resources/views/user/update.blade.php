@@ -123,7 +123,7 @@
                                         <div class="col-md-6">
                                             <input id="profile_photo"
                                              type="file"
-                                              accept=".png, .jpg, .jpeg" 
+                                              accept=".png, .jpg, .jpeg,.jfif" 
                                               
                                               onchange="validateFileType(event)" 
                                               class="form-control @error('profile_photo') is-invalid @enderror" 
@@ -148,7 +148,7 @@
                                     <div class="form-group row">
                                         
                                         <div class="col-md-3">
-                                            <a href="{{route('changePassword',Auth::id())}}" >Change Password</a>
+                                            <a href="{{route('changePasswordForm',$userData->id)}}" >Change Password</a>
                                         </div>
                                     </div>
 

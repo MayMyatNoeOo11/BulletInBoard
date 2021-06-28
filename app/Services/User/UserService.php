@@ -12,9 +12,9 @@ class UserService implements UserServiceInterface
         $this->userDao = $user_dao_interface;
     }
 
-    public function getUserList()
+    public function getUserList($request)
     {
-        return $this->userDao->getUserList();
+        return $this->userDao->getUserList($request);
     }
     public function getUserbyId($id)
     {
@@ -35,6 +35,10 @@ class UserService implements UserServiceInterface
     public function deleteUser($id)
     {
         return $this->userDao->deleteUser($id);
+    }
+    public function changePassword($id,$new_password)
+    {
+        return $this->userDao->changePassword($id,$new_password);
     }
 
 }

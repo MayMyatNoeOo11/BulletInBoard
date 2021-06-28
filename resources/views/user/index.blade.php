@@ -10,7 +10,7 @@
 <div class="container">
 
 @if ($message = Session::get('success'))
-        <div class="col-md-11 alert alert-success">
+        <div class="col-md-11 alert alert-success" id="success-msg">
             <span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -18,7 +18,7 @@
         </div>
 @endif
 @if ($message = Session::get('fail'))
-        <div class="col-md-11 alert alert-danger">
+        <div class="col-md-11 alert alert-danger" id="fail-msg">
             <span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -31,11 +31,15 @@
         <h2>Users List</h2>   
         <div class="col-md-12" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
             <div class="form-inline">
-                <input class="form-control mr-2" placeholder="Name" style="padding-left:2px" type="text" name="name" id="name" />
-                <input class=" form-control mr-2"  placeholder="Email"  type="text" name="email" id="email" />          
-                <input class="form-control mr-2"  placeholder="Created From Date"  type="text" name="created_from_date" id="created_from_date" />
-                <input class="form-control mr-2"  placeholder="Created To Date"  type="text" name="created_to_date" id="created_to_date" />
-                <a  name="search" id="btn-search" class="btn btn-large btn-info mr-2"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</a>
+<form method="get" action="{{route('showAllUsers')}}" id="search">
+        
+                <input class="form-control mr-2" placeholder="Name" style="padding-left:2px" type="text" name="name" id="name"  value="{{$name}}"/>
+                <input class="form-control mr-2" placeholder="Email" type="text" name="email" id="email"  value="{{$email}}"/>          
+                <input class="form-control mr-2" placeholder="Created From Date" type="date" name="created_from_date" id="created_from_date" value="{{$created_from_date}}"/>
+                <input class="form-control mr-2" placeholder="Created To Date" type="date" name="created_to_date" id="created_to_date" value="{{$created_to_date}}" />
+                <button type="submit" name="search" id="btn-search" class=" btn btn-large btn-info mr-2" onclick="search()"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
+           </form>
+                <button type="button" name="clear" id="btn-clear" class="btn btn-large btn-info  mr-5" onclick="clearSearchBox()">Clear</button>
                 <a  href="{{route('createUserForm')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>        
             </div>
         </div>
@@ -189,6 +193,21 @@
                 timeout: 8000
             })
         });
+
+
+        function clearSearchBox()
+{
+    document.getElementById("name").value="";
+    document.getElementById("email").value="";
+    document.getElementById("created_from_date").value="";
+    document.getElementById("created_to_date").value="";
+    $( "#search" ).submit();
+    
+  
+  //  location.reload();
+}
+
+
 </script>
 
 @endsection

@@ -11,17 +11,22 @@ class PostService implements PostServiceInterface
         $this->postDao = $post_dao_interface;
     }
 
-    public function getListForAdmin()
+    public function getExportList()
     {
-        return $this->postDao->getListForAdmin();
+        return $this->postDao->getExportList();
     }
-    public function getListForUser($id)
+
+    public function getListForAdmin($searchValue)
     {
-        return $this->postDao->getListForUser($id);
+        return $this->postDao->getListForAdmin($searchValue);
     }
-    public function getListForGuest()
+    public function getListForUser($id,$searchValue)
     {
-        return $this->postDao->getListForGuest();
+        return $this->postDao->getListForUser($id,$searchValue);
+    }
+    public function getListForGuest($searchValue)
+    {
+        return $this->postDao->getListForGuest($searchValue);
     }
     public function getPostbyId($id)
     {
@@ -46,6 +51,10 @@ class PostService implements PostServiceInterface
     public function deletePost($id)
     {
         return $this->postDao->deletePost($id);
+    }
+    public function search($searchValue)
+    {
+        return $this->postDao->search($searchValue); 
     }
     
 

@@ -7,6 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Contracts\Services\Post\PostServiceInterface;
 use Illuminate\Validation\Rule;
+use App\Exports\PostsExport;
+use App\Imports\PostsImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PostController extends Controller
 {
@@ -17,7 +20,7 @@ class PostController extends Controller
   }
 
       /**
-     * Display the specified resource.
+     * Display the post detail
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -29,31 +32,41 @@ class PostController extends Controller
       return view('post.show', compact('post'));
     }
 
+    public  function search($data,$searchValue)
+    {
+        
+        
+    }
+
     /**
      * Show active Posts List for User itself, Show all posts for Admin
      */
-    public function showAllPosts()
+    public function showAllPosts(Request $request)
     { 
+
+    
+      $searchText=$request->input('search');
       if(Auth::check())
       { 
       $userType=Auth::user()->type;
          if($userType=='0')
          {
-           $postData=$this->postService->getListForAdmin();
+           $postData=$this->postService->getListForAdmin($searchText);
          }       
          else 
          {
-          $postData=$this->postService->getListForUser(Auth::user()->id);       
-        }
+          $postData=$this->postService->getListForUser(Auth::user()->id,$searchText);       
+          } 
       }       
          //if guest (show all post where status is active)          
       else
       {
-        $postData=$this->postService->getListForGuest();
-      }
-
+        $postData=$this->postService->getListForGuest($searchText);
+      }     
+      
       return view('post.index',compact('postData'))
-      ->with('i',(request()->input('page',1)-1)*10);
+      ->with('i',(request()->input('page',1)-1)*10)
+      ->with('searchText',$searchText);
     }
 
     /**
@@ -134,7 +147,7 @@ class PostController extends Controller
     public function delete_post($id)
     {
         $post=$this->postService->getPostbyId($id);     
-        //dd($data);
+    
         return view('post.delete',compact('post'));    
     }
 
@@ -157,8 +170,34 @@ class PostController extends Controller
       }
     }
 
-    public function upload()
+    /**
+     * import view
+     */
+
+    public function importForm()
     {
       return view('post.upload');
+    }
+    
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function import(Request $request)
+    {
+      Excel::import(new PostsImport,request()->file('fileUpload'));
+     // return back();
+     return redirect()->route('showAllPosts')->with('Upload successful.');  
+    }
+
+        /**
+    * @return \Illuminate\Support\Collection
+    */
+    public function export() 
+    {
+        return Excel::download(new PostsExport, 'posts.xlsx');
+    }
+    public function exportIntoCSV()
+    {
+      return Excel::download(new PostsExport, 'posts.csv');
     }
 }

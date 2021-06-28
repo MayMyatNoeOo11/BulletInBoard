@@ -21,9 +21,10 @@ class CreatePostsTable extends Migration
             $table->integer('created_user_id');
             $table->integer('updated_user_id');
             $table->integer('deleted_user_id')->nullable();
-            //$table->timestamps();
-            $table->timestamp('created_at')->useCurrent();
-            $table->timestamp('updated_at')->nullable();
+            $table->softDeletes();
+            $table->timestamps();
+            //$table->timestamp('created_at')->useCurrent();
+           // $table->timestamp('updated_at')->nullable();
             
         });
     }

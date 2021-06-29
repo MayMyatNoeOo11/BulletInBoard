@@ -19,10 +19,10 @@ class UserSeeder extends Seeder
         {
             DB::table('users')->insert([
                 'name' => 'User '.$i,
-                'email' => Str::random(7).'@gmail.com',
-                'password' => Hash::make('12345678'),
+                'email' =>'user'.$i.'@gmail.com', //Str::random(7).'@gmail.com',
+                'password' => Hash::make('User1234'),
                 'phone' => '0979895623'.$i,
-                'type'=>'0',
+                'type'=>'1',
                 'address' => Str::random(50),
                 'profile_photo' => 'D:\MayMyatNoeOo\images\img'.$i.'.jpg',
                 'date_of_birth' => '1996-11-07',
@@ -32,5 +32,19 @@ class UserSeeder extends Seeder
                 'updated_user_id'=>'1'
             ]);
         }
+        DB::table('users')->insert([
+            'name' => 'Admin',
+            'email' =>'admin@gmail.com', //Str::random(7).'@gmail.com',
+            'password' => Hash::make('Admin1234'),
+            'phone' => '0979895623'.$i,
+            'type'=>'0',
+            'address' => Str::random(50),
+            'profile_photo' => 'D:\MayMyatNoeOo\images\img'.$i.'.jpg',
+            'date_of_birth' => '1996-11-07',
+            'created_at'=>now(),
+            'updated_at'=>now(),
+            'created_user_id'=>'1',
+            'updated_user_id'=>'1'
+        ]);
     }
 }

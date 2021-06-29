@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+
 @section('content')
 <div class="row">
         <div class="col-md-2">
@@ -13,22 +15,9 @@
         </div>
         <div class="col-md-8 " style="padding-top:4px">
             <div class="card">
-                <div class="card-header bg-light" >
+                <div class="card-header myheader bg-light" >
                     <h4 class="text-center">Create User</h4>
-                </div>
-
-
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>
-                        {{$error}}
-                        </li>
-                        @endforeach
-                        </ul>
-                    </div>
-                @endif
+                </div>              
 
 
                 <div class="card-body">
@@ -39,7 +28,7 @@
                             <label for="name" class="col-md-4 col-form-label text-md-right">User Name</label>
 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required  autofocus>
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" >
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
@@ -53,7 +42,7 @@
                             <label for="email" class="col-md-4 col-form-label text-md-right">Email</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+                                <input id="email" type="text" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}"   autocomplete="email">
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -67,7 +56,7 @@
                             <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
 
                             <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required >
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}"  >
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -81,7 +70,12 @@
                             <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm Password</label>
 
                             <div class="col-md-6">
-                                <input id="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"  value="{{ old('password_confirmation') }}" required >
+                                <input id="password_confirmation" type="password" class="form-control @error('password_confirmation') is-invalid @enderror" name="password_confirmation"  value="{{ old('password_confirmation') }}"  >
+                                @error('password_confirmation')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
                             </div>
                         </div>                        
 
@@ -90,7 +84,7 @@
 
                             <div class="col-md-6">
 
-                            <input class="form-control dob_datepicker @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth"  type="text" value="{{ old('date_of_birth') }}" required autocomplete="off" autofocus/>
+                            <input class="form-control dob_datepicker @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth"  type="text" value="{{ old('date_of_birth') }}"  autocomplete="off" autofocus/>
                   
 
                                 @error('date_of_birth')
@@ -122,7 +116,7 @@
                             <label for="phone" class="col-md-4 col-form-label text-md-right">Phone</label>
 
                             <div class="col-md-6">
-                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="phone" autofocus>
+                                <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}"  autocomplete="phone" autofocus>
 
                                 @error('phone')
                                     <span class="invalid-feedback" role="alert">
@@ -154,7 +148,7 @@
                                 <input id="profile_photo" name="profile_photo"  type="file" 
                                  accept=".png, .jpg, .jpeg,.jfif" onchange="validateFileType(event)"
                                   class="form-control @error('profile_photo') is-invalid @enderror" 
-                                  value="{{ old('profile_photo') }}"  required >
+                                  value="{{ old('profile_photo') }}"   >
 
                                 @error('profile_photo')
                                     <span class="invalid-feedback" role="alert">
@@ -181,6 +175,17 @@
                                 </button>
                             </div>
                         </div>
+                        @if ($errors->any())
+                    <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>
+                        {{$error}}
+                        </li>
+                        @endforeach
+                        </ul>
+                    </div>
+                @endif
 
                     </form>
 

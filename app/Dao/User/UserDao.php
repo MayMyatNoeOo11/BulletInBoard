@@ -54,6 +54,8 @@ class UserDao implements UserDaoInterface
  
 
         $userData=$result->paginate(5);
+        //$userData->appends(['search'=>$name]);
+     // $userData=$result->get();
         return $userData;
     }
 
@@ -132,19 +134,30 @@ class UserDao implements UserDaoInterface
         //$old_user_data->Save();  
     }
 
-    public function deleteUser($id)
-    {   
+    /**
+     * Check whether user has created post or not
+     */
+
+    public function checkUserPosted($id)
+    {
         $result= DB::table('posts')->where('created_user_id', '=',$id)->whereNull('deleted_at')->get();
        
         if ($result->isEmpty()) 
         { 
+            return 0; //if there is no post
+        }
+        return 1;
+    }
+
+    public function deleteUser($id)
+    {   
+
             //delete
             User::find($id)->update(['deleted_user_id' => Auth::user()->id]);
             $is_deleted=  User::where('id',$id)->delete();//DB::table('users')->where('id', '=', $id)->delete();
             return $is_deleted;
 
-        }
-        return 0;
+
     } 
     
     public function changePassword($id,$new_password)

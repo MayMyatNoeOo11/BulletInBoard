@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 <nav aria-label="breadcrumb" class="custom-bc" >
   <ol class="breadcrumb">
@@ -87,12 +88,11 @@
                 </tbody>
             </table>
             
-
             {{-- Pagination --}}
-            <div class="d-flex justify-content-center">
-            {{$userData->links()}}
-
+            <div class="d-flex justify-content-center"> 
+            {{ $userData->appends(Request::except('page'))->links() }}
             </div>
+            <span class="total" > Total : {{ $userData->total() }} </span>
         </div>        
     </div>
 </div>

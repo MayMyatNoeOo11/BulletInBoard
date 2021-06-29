@@ -36,7 +36,7 @@ class PostDao implements PostDaoInterface
         ->orWhere('posts.title', 'LIKE', "%$searchValue%")
         ->orWhere('posts.description', 'LIKE', "%$searchValue%") ;       
         
-    }
+        }
 
         return $postData->paginate(10); 
     }
@@ -55,6 +55,7 @@ class PostDao implements PostDaoInterface
         ->orWhere('posts.title', 'LIKE', "%$searchValue%")
         ->orWhere('posts.description', 'LIKE', "%$searchValue%") ;  
         }
+       
         return $postData->paginate(10); 
     }
     public function getPostbyId($id)

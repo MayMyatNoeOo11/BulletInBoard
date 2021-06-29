@@ -12,7 +12,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card ">
-                <div class="card-header">Upload Post</div>
+                <div class="card-header myheader">Upload Post</div>
 
                 <div class="card-body">
                     <form method="POST" action="{{route('import')}}" enctype="multipart/form-data">

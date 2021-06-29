@@ -10,6 +10,7 @@ interface UserServiceInterface
     public function getUserInfo($id);
     public function saveUser($request);
     public function updateUser($request,$id);
+    public function checkUserPosted($id);
     public function deleteUser($id);
     public function changePassword($id,$new_password);
 

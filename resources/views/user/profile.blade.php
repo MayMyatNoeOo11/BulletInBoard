@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+
+
 @section('content')
 <nav aria-label="breadcrumb" class="custom-bc" >
   <ol class="breadcrumb"  >

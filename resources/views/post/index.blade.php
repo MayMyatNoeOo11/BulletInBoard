@@ -18,7 +18,9 @@
             @if(Auth::user())
               <a href="{{route('importForm')}}" name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>            
               <a  href="{{route('create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>  
-           @endif      
+           @endif    
+           
+           
          </form>   
   
         
@@ -41,7 +43,7 @@
             </button>
         </div>
         @endif
-      
+       
         <div class="container mt-2">
             <table class="table table-striped table-responsive-sm table-bordered mb-5">
                 <thead>
@@ -85,11 +87,16 @@
                     @endforeach
                 </tbody>
             </table>
-
+          
             {{-- Pagination --}}
             <div class="d-flex justify-content-center">
-            {{$postData->links()}}
+           
+                {{ $postData->appends(Request::except('page'))->links() }}
+               
             </div>
+            <span class="total" > Total : {{ $postData->total() }} </span>
+           
+
         </div>        
     </div>
 </div>

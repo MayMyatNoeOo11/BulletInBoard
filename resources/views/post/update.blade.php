@@ -30,7 +30,7 @@
            
         <!-- card-->
             <div class="card" >
-                <div class="card-header bg-info text-center font-weight-bold">
+                <div class="card-header myheader bg-info text-center font-weight-bold">
                     Update Post
                 </div>
                 <div class="card-body">
@@ -40,7 +40,7 @@
 
                     <div class="form-group">
                         <label for="title">Title</label>
-                        <input type="text" id="title" name="title" class="@error('title') is-invalid @enderror form-control" value="{{ $postData->title }}" required="Fill title">
+                        <input type="text" id="title" name="title" class="@error('title') is-invalid @enderror form-control" value="{{ $postData->title }}"/>
                         @error('title')
                         <div class="alert alert-danger alert-dismissible">{{ $message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -52,7 +52,7 @@
 
                     <div class="form-group">
                         <label for="description">Description</label>
-                        <textarea rows="8" name="description" class="@error('description') is-invalid @enderror form-control" required="">{{ $postData->description }}</textarea>
+                        <textarea rows="8" name="description" class="@error('description') is-invalid @enderror form-control" >{{ $postData->description }}</textarea>
                         @error('description')
                         <div class="alert alert-danger alert-dismissible">{{ $message }}
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">

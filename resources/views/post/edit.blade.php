@@ -17,7 +17,7 @@
             
         <!-- card-->
             <div class="card" >
-                <div class="card-header bg-info text-center font-weight-bold">
+                <div class="card-header myheader  bg-info text-center font-weight-bold">
                     Edit Post
                 </div>
                 <div class="card-body">

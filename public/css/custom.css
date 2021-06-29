@@ -34,8 +34,8 @@ table th {
 background-color:#b1dfd9;
 }
 a.nav-font{
-font-size:2em;
-font-family:Verdana, Geneva, Tahoma, sans-serif;
+font-size:2.5em;
+font-family:Fantasy, monospace, Tahoma, sans-serif;
 }
 .modal-head-color
 {
@@ -46,4 +46,14 @@ td>#btn-detail
     color:brown;
     text-decoration: underline;
   cursor: -webkit-grab; cursor: grab;
+}
+.card-header.myheader
+{
+    background-color:#aaa5a14a;
+}
+.total
+{
+    float:right;
+    font-size:1.5em;
+    font-family:monospace;
 }

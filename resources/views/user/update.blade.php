@@ -1,5 +1,6 @@
 @extends('layouts.app')
 
+
 @section('content')
 
     <div class="row">
@@ -17,7 +18,7 @@
     
         <div class="col-md-8" style="padding-top:4px">
             <div class="card">
-                <div class="card-header bg-light" >
+                <div class="card-header myheader bg-light" >
                     <h4 class="text-center">Edit User</h4>
                 </div>
 
@@ -31,7 +32,7 @@
                                         <label for="name" class="col-md-3 col-form-label text-md-right">User Name</label>
 
                                         <div class="col-md-6">
-                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $userData->name}}" required autocomplete="name" autofocus>
+                                            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $userData->name}}"  autocomplete="name" autofocus>
 
                                             @error('name')
                                                 <span class="invalid-feedback" role="alert">
@@ -45,7 +46,7 @@
                                         <label for="email" class="col-md-3 col-form-label text-md-right">Email</label>
 
                                         <div class="col-md-6">
-                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$userData->email }}" required autocomplete="email">
+                                            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{$userData->email }}"  autocomplete="email">
 
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
@@ -77,7 +78,7 @@
                                         <label for="phone" class="col-md-3 col-form-label text-md-right">Phone</label>
 
                                         <div class="col-md-6">
-                                            <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{$userData->phone }}" required autocomplete="phone" autofocus>
+                                            <input id="phone" type="text" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{$userData->phone }}"  autocomplete="phone" autofocus>
 
                                             @error('phone')
                                                 <span class="invalid-feedback" role="alert">

@@ -24,7 +24,7 @@
                                 Email :
                             </div>
                             <div class="col-md-9">
-                            {{$userData->email}} 
+                                {{$userData->email}} 
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -32,7 +32,7 @@
                                 Password :
                             </div>
                             <div class="col-md-9">
-                            {{$userData->password}} 
+                                {{$userData->password}} 
                             </div>
                         </div>
 
@@ -41,7 +41,7 @@
                                 Date of Birth :
                             </div>
                             <div class="col-md-9">
-                            {{$userData->date_of_birth}} 
+                                {{$userData->date_of_birth}} 
                             </div>
                         </div>
 
@@ -56,14 +56,14 @@
                                 Admin
                                 @endif
                             </div>
-                         </div>
+                        </div>
 
                         <div class="row mb-3">
                             <div class="col-md-3">
                                 Phone :
                             </div>
                             <div class="col-md-9">
-                            {{$userData->phone}} 
+                                {{$userData->phone}} 
                             </div>
                         </div>
  
@@ -72,7 +72,7 @@
                                 Address :
                             </div>
                             <div class="col-md-9">
-                            {{$userData->address}} 
+                                {{$userData->address}} 
                             </div>
                         </div>  
                     

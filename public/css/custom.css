@@ -57,3 +57,8 @@ td>#btn-detail
     font-size:1.5em;
     font-family:monospace;
 }
+.require-notation
+{
+    color:red;
+    font-size:2em;
+}

@@ -2,44 +2,44 @@
 
 
 @section('content')
-<nav aria-label="breadcrumb" class="custom-bc" >
-  <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{ route('showAllUsers') }}">Users</a></li>   
-  </ol>
-</nav>
-<div class="container">
+    <nav aria-label="breadcrumb" class="custom-bc" >
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('showAllUsers') }}">Users</a></li>   
+        </ol>
+    </nav>
+    <div class="container">
 
-@if ($message = Session::get('success'))
+        @if ($message = Session::get('success'))
         <div class="col-md-11 alert alert-success" id="success-msg">
             <span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
             </button>
         </div>
-@endif
-@if ($message = Session::get('fail'))
+        @endif
+        @if ($message = Session::get('fail'))
         <div class="col-md-11 alert alert-danger" id="fail-msg">
             <span>{{ $message }}</span>
             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
             </button>
         </div>
-@endif
+        @endif
         
 
     <div class="row justify-content-center">  
         <h2>Users List</h2>   
         <div class="col-md-12" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
             <div class="form-inline">
-<form method="get" action="{{route('showAllUsers')}}" id="search">
+                <form method="get" action="{{route('showAllUsers')}}" id="search">
         
-                <input class="form-control mr-2" placeholder="Name" style="padding-left:2px" type="text" name="name" id="name"  value="{{$name}}"/>
-                <input class="form-control mr-2" placeholder="Email" type="text" name="email" id="email"  value="{{$email}}"/>          
-                <input class="form-control mr-2 from_datepicker" placeholder="Created From Date" type="text" name="created_from_date" id="created_from_date" value="{{$created_from_date}}" autocomplete="off" />
-                <input class="form-control mr-2 to_datepicker" placeholder="Created To Date" type="text" name="created_to_date" id="created_to_date" value="{{$created_to_date}}" autocomplete="off"  />
-                <button type="submit" name="search" id="btn-search" class=" btn btn-large btn-info mr-2" onclick="search()"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
-           </form>
+                    <input class="form-control mr-2" placeholder="Name" style="padding-left:2px" type="text" name="name" id="name"  value="{{$name}}"/>
+                    <input class="form-control mr-2" placeholder="Email" type="text" name="email" id="email"  value="{{$email}}"/>          
+                    <input class="form-control mr-2 from_datepicker" placeholder="Created From Date" type="text" name="created_from_date" id="created_from_date" value="{{$created_from_date}}" autocomplete="off" />
+                    <input class="form-control mr-2 to_datepicker" placeholder="Created To Date" type="text" name="created_to_date" id="created_to_date" value="{{$created_to_date}}" autocomplete="off"  />
+                    <button type="submit" name="search" id="btn-search" class=" btn btn-large btn-info mr-2" onclick="search()"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
+                </form>
                 <button type="button" name="clear" id="btn-clear" class="btn btn-large btn-info  mr-5" onclick="clearSearchBox()">Clear</button>
                 <a  href="{{route('createUserForm')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>        
             </div>
@@ -47,7 +47,7 @@
         
         <div class="container">
             <table class="table table-responsive table-bordered mb-5">
-                    <thead>
+                <thead>
                     <tr class="table-success">
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
@@ -60,44 +60,44 @@
                         <th scope="col">Updated Date</th>
                         <th scope="col"></th>                        
                     </tr>
-              </thead>
+                </thead>
                 <tbody>
-                @foreach($userData as $key=>$data)
-                   <tr>
-                        <td>{{++$k}}</td>
-                        <td><a data-toggle="modal" id="btn-detail" data-target="#detailModal"
-                                data-attr="{{route('showUser',$data->id)}}">{{ $data->name }}</a></td>
-                        <td>{{$data->email}}</td>
-                        <td>{{$data->created_user_name}}</td>
-                        <td>{{$data->phone}}</td>
-                        <td>{{$data->date_of_birth}}</td>
-                        <td>{{ \Str::limit($data->address,15) }}</td>
-                        <td>{{date('Y-m-d', strtotime($data->created_at))}}</td>
-                       <td>{{date('Y-m-d', strtotime($data->updated_at))}}</td>
-                       
-                       <td>
-                       <form>
-                            <a class="btn btn-success btn-sm" href="{{route('updateUser',$data->id)}}">Edit</a>
-                            <a class="btn btn-danger btn-sm"data-toggle="modal" id="btn-delete" data-target="#deleteModal"
-                                data-attr="{{route('delete',$data->id)}}">Delete</a>
-                       </form>
-                       </td>  
-                  
-                   </tr>
-                   @endforeach
+                    @foreach($userData as $key=>$data)
+                    <tr>
+                            <td>{{++$k}}</td>
+                            <td><a data-toggle="modal" id="btn-detail" data-target="#detailModal"
+                                    data-attr="{{route('showUser',$data->id)}}">{{ $data->name }}</a></td>
+                            <td>{{$data->email}}</td>
+                            <td>{{$data->created_user_name}}</td>
+                            <td>{{$data->phone}}</td>
+                            <td>{{$data->date_of_birth}}</td>
+                            <td>{{ \Str::limit($data->address,15) }}</td>
+                            <td>{{date('Y-m-d', strtotime($data->created_at))}}</td>
+                            <td>{{date('Y-m-d', strtotime($data->updated_at))}}</td>
+                        
+                            <td>
+                            <form>
+                                <a class="btn btn-success btn-sm" href="{{route('updateUser',$data->id)}}">Edit</a>
+                                <a class="btn btn-danger btn-sm"data-toggle="modal" id="btn-delete" data-target="#deleteModal"
+                                    data-attr="{{route('delete',$data->id)}}">Delete</a>
+                            </form>
+                        </td>  
+                    
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
             
             {{-- Pagination --}}
             <div class="d-flex justify-content-center"> 
-            {{ $userData->appends(Request::except('page'))->links() }}
+                {{ $userData->appends(Request::except('page'))->links() }}
             </div>
             <span class="total" > Total : {{ $userData->total() }} </span>
         </div>        
     </div>
 </div>
 	
-    <!-- small detail modal -->
+<!-- small detail modal -->
     <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -115,9 +115,9 @@
             </div>
         </div>
     </div>
-  <!--end detail modal-->
+ <!--end detail modal-->
 
-    <!-- delete modal -->
+<!-- delete modal -->
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -136,7 +136,7 @@
         </div>
     </div>
   <!--end delete modal-->
-  <script>
+<script>
         // display a modal (small modal)
         $(document).on('click', '#btn-detail', function(event) {
             event.preventDefault();
@@ -195,8 +195,8 @@
         });
 
 
-        function clearSearchBox()
-{
+    function clearSearchBox()
+    {
     document.getElementById("name").value="";
     document.getElementById("email").value="";
     document.getElementById("created_from_date").value="";
@@ -205,22 +205,21 @@
     
   
   //  location.reload();
-}
-$('.from_datepicker').datepicker({
-    format: 'yyyy/mm/dd',
-    startDate: '1990-01-01',
-    constrainInput: false ,
-    autoClose:true,
-    endDate:new Date()
-});
-$('.to_datepicker').datepicker({
-    format: 'yyyy/mm/dd',
-    startDate: '1990-01-01',
-    constrainInput: false ,
-    autoClose:true,
-    endDate:new Date()
-});
-
+    }
+    $('.from_datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        startDate: '1990-01-01',
+        constrainInput: false ,
+        autoClose:true,
+        endDate:new Date()
+    });
+    $('.to_datepicker').datepicker({
+        format: 'yyyy/mm/dd',
+        startDate: '1990-01-01',
+        constrainInput: false ,
+        autoClose:true,
+        endDate:new Date()
+    });
 </script>
 
 @endsection

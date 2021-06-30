@@ -1,47 +1,46 @@
 @extends('layouts.app')
 
 @section('content')
-<nav aria-label="breadcrumb" class="custom-bc" >
-  <ol class="breadcrumb"  >
-  <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
-    <li class="breadcrumb-item active"><a href="{{ route('showAllPosts') }}">Posts</a></li>   
-  </ol>
-</nav>
-<div class="container">
-    <div class="row justify-content-center">  
-        <h2>Posts</h2>   
-        <div class="col-md-11" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
-        <form action="{{route('showAllPosts')}}" method="get">
-            <input  style="padding-left:5px" type="text" name="search" id="txt-search" value="{{$searchText}}" />
-            <button type="submit" id="btn-search" class="btn btn-large btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
-            <a   href="{{route('export')}}" name="download" id="btn-download" class="btn btn-large btn-info"><i class="bi bi-download"></i>&nbsp;&nbsp;Download</a> 
-            @if(Auth::user())
-              <a href="{{route('importForm')}}" name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>            
-              <a  href="{{route('create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>  
-           @endif    
+    <nav aria-label="breadcrumb" class="custom-bc" >
+        <ol class="breadcrumb"  >
+            <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
+            <li class="breadcrumb-item active"><a href="{{ route('showAllPosts') }}">Posts</a></li>   
+        </ol>
+    </nav>
+    <div class="container">
+        <div class="row justify-content-center">  
+            <h2>Posts</h2>   
+            <div class="col-md-11" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
+                <form action="{{route('showAllPosts')}}" method="get">
+                    <input  style="padding-left:5px" type="text" name="search" id="txt-search" value="{{$searchText}}" />
+                    <button type="submit" id="btn-search" class="btn btn-large btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
+                    <a   href="{{route('export')}}" name="download" id="btn-download" class="btn btn-large btn-info"><i class="bi bi-download"></i>&nbsp;&nbsp;Download</a> 
+                    @if(Auth::user())
+                        <a href="{{route('importForm')}}" name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>            
+                        <a  href="{{route('create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>  
+                    @endif    
            
            
-         </form>   
-  
+                </form> 
         
         </div>
         
         @if ($message = Session::get('success'))
-        <div class="col-md-11 alert alert-success" id="success-msg">
-            <span>{{ $message }}</span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+            <div class="col-md-11 alert alert-success" id="success-msg">
+                <span>{{ $message }}</span>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
         @endif
                 
         @if ($message = Session::get('fail'))
-        <div class="col-md-11 alert alert-success" id="fail-msg">
-            <span>{{ $message }}</span>
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
+            <div class="col-md-11 alert alert-success" id="fail-msg">
+                <span>{{ $message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
         @endif
        
         <div class="container mt-2">
@@ -89,19 +88,15 @@
             </table>
           
             {{-- Pagination --}}
-            <div class="d-flex justify-content-center">
-           
-                {{ $postData->appends(Request::except('page'))->links() }}
-               
+            <div class="d-flex justify-content-center">           
+                {{ $postData->appends(Request::except('page'))->links() }}               
             </div>
-            <span class="total" > Total : {{ $postData->total() }} </span>
-           
-
+            <span class="total" > Total : {{ $postData->total() }} </span> 
         </div>        
     </div>
 </div>
 	
-    <!-- small modal -->
+<!-- small modal -->
     <div class="modal fade" id="detailModal" tabindex="-1" role="dialog" aria-labelledby="detailModal"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
@@ -119,9 +114,10 @@
             </div>
         </div>
     </div>
-  <!--end detail modal-->
-      <!-- delete modal -->
-      <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
+
+
+<!-- delete modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal"
         aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -138,7 +134,7 @@
             </div>
         </div>
     </div>
-  <!--end delete modal-->
+
 <script>
         // display a modal (small modal)
         $(document).on('click', '#btn-detail', function(event) {

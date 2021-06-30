@@ -7,7 +7,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card ">
-                <div class="card-header myheader">Change Password</div>
+                <div class="card-header myheader">
+                    Change Password
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{route('changePassword')}}">
@@ -33,6 +35,9 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -47,6 +52,9 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -60,6 +68,9 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
                             </div>
                         </div>
 

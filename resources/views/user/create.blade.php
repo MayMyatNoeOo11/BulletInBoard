@@ -1,40 +1,37 @@
 @extends('layouts.app')
 
-
-
 @section('content')
 <div class="row">
         <div class="col-md-2">
-        <nav aria-label="breadcrumb" class="custom-bc" >
-            <ol class="breadcrumb"  >
-                <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
-                <li class="breadcrumb-item"><a href="{{ route('showAllUsers') }}">Users</a></li>   
-                <li class="breadcrumb-item active"><a href="{{ route('createUserForm') }}" style="color:black">Add</a></li>  
-            </ol>
+            <nav aria-label="breadcrumb" class="custom-bc" >
+                <ol class="breadcrumb"  >
+                    <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('showAllUsers') }}">Users</a></li>   
+                    <li class="breadcrumb-item active"><a href="{{ route('createUserForm') }}" style="color:black">Add</a></li>  
+                </ol>
             </nav>
         </div>
-        <div class="col-md-8 " style="padding-top:4px">
+        <div class="col-md-8 offset-md-0" style="padding-top:4px">
             <div class="card">
                 <div class="card-header myheader bg-light" >
                     <h4 class="text-center">Create User</h4>
-                </div>              
-
-
+                </div>   
                 <div class="card-body">
                     <form method="POST" enctype="multipart/form-data" action="{{route('createUser') }}" >
                         @csrf
-
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">User Name</label>
-
+                            <label for="name" class="col-md-4 col-form-label text-md-right">User Name</label> 
                             <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" >
+                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" >                               
 
                                 @error('name')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
+                            </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
                             </div>
                         </div>
 
@@ -50,6 +47,9 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -64,6 +64,9 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -77,15 +80,15 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
+                            </div>
                         </div>                        
 
                         <div class="form-group row">
                             <label for="date_of_birth" class="col-md-4 col-form-label text-md-right">Date of Birth</label>
-
                             <div class="col-md-6">
-
-                            <input class="form-control dob_datepicker @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth"  type="text" value="{{ old('date_of_birth') }}"  autocomplete="off" autofocus/>
-                  
+                                 <input class="form-control dob_datepicker @error('date_of_birth') is-invalid @enderror" id="date_of_birth" name="date_of_birth"  type="text" value="{{ old('date_of_birth') }}"  autocomplete="off" autofocus/>
 
                                 @error('date_of_birth')
                                     <span class="invalid-feedback" role="alert">
@@ -93,24 +96,30 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
+                            </div>
                         </div>
 
                         <div class="form-group row">
-                                        <label for="type" class="col-md-4 col-form-label text-md-right">User Type</label>
+                            <label for="type" class="col-md-4 col-form-label text-md-right">User Type</label>
 
-                                        <div class="col-md-6">  
-                                            <select name="type" id="type" class="form-control">
-                                                <option value="0" >Admin</option>
-                                                <option value="1" selected>User</option>
-                                            </select>
+                            <div class="col-md-6">  
+                                <select name="type" id="type" class="form-control">
+                                    <option value="0" >Admin</option>
+                                    <option value="1" selected>User</option>
+                                </select>
                                      
-                                            @error('type')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                            </div>        
+                                @error('type')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
+                            </div>                                        
+                        </div>        
 
                         <div class="form-group row">
                             <label for="phone" class="col-md-4 col-form-label text-md-right">Phone</label>
@@ -124,7 +133,7 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>             
+                        </div>           
 
 
                         <div class="form-group row">
@@ -156,6 +165,9 @@
                                     </span>
                                 @enderror
                             </div>
+                            <div class="col-md-1">
+                                <span class="require-notation">*</span>
+                            </div>
                         </div>
 
                         <div class="form-group row">
@@ -176,28 +188,24 @@
                             </div>
                         </div>
                         @if ($errors->any())
-                    <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>
-                        {{$error}}
-                        </li>
-                        @endforeach
-                        </ul>
-                    </div>
-                @endif
+                            <div class="alert alert-danger">
+                                <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>
+                                    {{$error}}
+                                    </li>
+                                @endforeach
+                                </ul>
+                            </div>
+                        @endif
 
-                    </form>
-
-                    
+                    </form>                    
                 </div>
             </div>
         </div>
-        <div class="col-md-2"></div>
-        </div>   
+</div> 
            
 <script type="text/javascript">
-
 
 $('.dob_datepicker').datepicker({
     format: 'yyyy/mm/dd',

@@ -15,7 +15,7 @@ class UserSeeder extends Seeder
     public function run()
     {
         DB::table('users')->truncate();
-        for($i=1;$i<10;$i++)
+        for($i=1;$i<2;$i++)
         {
             DB::table('users')->insert([
                 'name' => 'User '.$i,

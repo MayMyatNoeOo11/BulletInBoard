@@ -11,11 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class PostsExport implements FromCollection,WithHeadings,  WithEvents
-
 {
-
-
-
      /**
      * @return array
      */
@@ -63,10 +59,11 @@ class PostsExport implements FromCollection,WithHeadings,  WithEvents
                         END) AS status'),
                 'u1.name as created_user',
                 'u2.name as updated_user',
-                'posts.created_at',
-                'posts.updated_at')
+                DB::raw('DATE_FORMAT(posts.created_at,\'%Y-%m-%d\') as cd'),
+                DB::raw('DATE_FORMAT(posts.updated_at,\'%Y-%m-%d\') as ud'))
        ->get();
        return $postData;
 
     }
+
 }

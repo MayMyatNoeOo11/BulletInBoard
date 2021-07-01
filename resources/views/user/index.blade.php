@@ -46,7 +46,7 @@
         </div>
         
         <div class="container">
-            <table class="table table-responsive table-bordered mb-5">
+            <table class="table table-striped table-responsive table-bordered mb-5">
                 <thead>
                     <tr class="table-success">
                         <th scope="col">#</th>
@@ -64,16 +64,16 @@
                 <tbody>
                     @foreach($userData as $key=>$data)
                     <tr>
-                            <td>{{++$k}}</td>
-                            <td><a data-toggle="modal" id="btn-detail" data-target="#detailModal"
+                            <td class="align-center">{{++$k}}</td>
+                            <td class="align-center"><a data-toggle="modal" id="btn-detail" data-target="#detailModal"
                                     data-attr="{{route('showUser',$data->id)}}">{{ $data->name }}</a></td>
-                            <td>{{$data->email}}</td>
-                            <td>{{$data->created_user_name}}</td>
-                            <td>{{$data->phone}}</td>
-                            <td>{{$data->date_of_birth}}</td>
-                            <td>{{ \Str::limit($data->address,15) }}</td>
-                            <td>{{date('Y-m-d', strtotime($data->created_at))}}</td>
-                            <td>{{date('Y-m-d', strtotime($data->updated_at))}}</td>
+                            <td class="align-center">{{$data->email}}</td>
+                            <td class="align-center">{{$data->created_user_name}}</td>
+                            <td class="align-center">{{$data->phone?:'-'}}</td>
+                            <td class="align-center">{{$data->date_of_birth}}</td>
+                            <td class="align-center">{{ $data->address? \Str::limit($data->address,15) : '-'}}</td>
+                            <td class="align-center">{{date('Y-m-d', strtotime($data->created_at))}}</td>
+                            <td class="align-center">{{date('Y-m-d', strtotime($data->updated_at))}}</td>
                         
                             <td>
                             <form>

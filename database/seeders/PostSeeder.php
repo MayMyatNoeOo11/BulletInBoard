@@ -19,7 +19,7 @@ class PostSeeder extends Seeder
     {   DB::table('posts')->truncate();
      // PostFactory(App\Models\Post::class, 23)->create();
         
-      \App\Models\Post::factory(23)->create();          
+      \App\Models\Post::factory(15)->create();          
         
       
     }

@@ -53,7 +53,7 @@ class UserDao implements UserDaoInterface
         }
  
 
-        $userData=$result->paginate(5);
+        $userData=$result->orderBy('u1.created_at','DESC')->paginate(10);
         //$userData->appends(['search'=>$name]);
      // $userData=$result->get();
         return $userData;

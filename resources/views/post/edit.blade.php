@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Description</label>
+                            <label for="description">Description<span class="require-notation">*</span></label>
                             <textarea rows="10" name="description" class="form-control" required="">{{ $post->description }}</textarea>
                         </div>
 

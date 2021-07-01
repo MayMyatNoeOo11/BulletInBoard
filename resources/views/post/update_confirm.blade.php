@@ -53,7 +53,7 @@
                                 Description :
                             </div>
                             <div class="col-md-9">
-                            {{$post->description}}
+                              <pre style="font-family:var(--mdb-font-roboto)">{{$post->description}}</pre>
                             </div>
                         </div>
                             

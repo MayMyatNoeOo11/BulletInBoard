@@ -53,7 +53,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="description">Description</label>
+                            <label for="description">Description<span class="require-notation">*</span></label>
                             <textarea rows="8" name="description" class="@error('description') is-invalid @enderror form-control">{{ old('description') }}</textarea>
                                 
                                 @error('description')

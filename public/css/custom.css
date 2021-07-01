@@ -11,6 +11,10 @@ table th {
     white-space: nowrap;
     width: 1%;
 }
+.align-center
+{
+    text-align: center;
+}
 .menu_btn {
     padding: 2px 5px;
     background-color:cadetblue;

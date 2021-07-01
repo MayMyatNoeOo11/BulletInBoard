@@ -1,16 +1,18 @@
 @extends('layouts.app')
 
 @section('content')
-    <nav aria-label="breadcrumb" class="custom-bc" >
-        <ol class="breadcrumb"  >
-            <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
-            <li class="breadcrumb-item active"><a href="{{ route('showAllPosts') }}">Posts</a></li>   
-        </ol>
-    </nav>
+    @if(Auth::user())
+        <nav aria-label="breadcrumb" class="custom-bc" >
+            <ol class="breadcrumb"  >
+                <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
+                <li class="breadcrumb-item active"><a href="{{ route('showAllPosts') }}">Posts</a></li>   
+            </ol>
+        </nav>
+    @endif 
     <div class="container">
         <div class="row justify-content-center">  
             <h2>Posts</h2>   
-            <div class="col-md-11" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
+            <div class="col-md-121" style="background-color:light;padding-top:10px;padding-bottom:10px"> 
                 <form action="{{route('showAllPosts')}}" method="get">
                     <input  style="padding-left:5px" type="text" name="search" id="txt-search" value="{{$searchText}}" />
                     <button type="submit" id="btn-search" class="btn btn-large btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>

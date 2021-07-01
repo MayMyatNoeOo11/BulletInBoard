@@ -166,8 +166,9 @@
                                         <button type="submit" class="btn btn-primary">
                                             Update
                                         </button>
-                                        <button type="button" class="btn btn-danger">
+                                        <a class="btn btn-danger" href="{{ route('showAllUsers') }}">
                                             Cancel
+                                        </a>
                                         </button>
                                     </div>
                                 </div>                                                

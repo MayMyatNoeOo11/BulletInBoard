@@ -1,8 +1,16 @@
 @extends('layouts.app')
-@section('menu')
 
-@endsection
 @section('content')
+<nav aria-label="breadcrumb" class="custom-bc" >
+    <ol class="breadcrumb"  >
+        <li class="breadcrumb-item"><a href="{{ route('common') }}">Home</a></li>
+        @if(Auth::user()->type=='0')
+            <li class="breadcrumb-item"><a href="{{ route('showAllUsers') }}">Users</a></li>
+        @endif 
+    
+
+    </ol>
+    </nav>
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-8">

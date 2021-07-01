@@ -6,7 +6,11 @@
 
 @endsection
 @section('content')
-      
+<script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+        setTimeout("preventBack()", 0);
+        window.onunload = function () { null };
+</script> 
 
 <div class="container">
     <div class="row mt-5">
@@ -21,7 +25,7 @@
         </div>  
     </div>     
 </div>
-            
+      
 @endsection
 
 

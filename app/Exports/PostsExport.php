@@ -9,9 +9,10 @@ use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Events\AfterSheet;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
 class PostsExport implements FromCollection,WithHeadings,  WithEvents
 {
+    use RegistersEventListeners;
      /**
      * @return array
      */
@@ -22,7 +23,22 @@ class PostsExport implements FromCollection,WithHeadings,  WithEvents
                 $cellRange = 'A1:I1'; // All headers
                 $event->sheet->getDelegate()->getStyle($cellRange)->getFont()->setSize(14);
                // $event->sheet->getDelegate()->getColumnDimension($column)->setWidth(20);
-            },
+
+               $sheet = $event->sheet->getDelegate();
+                $sheet->getStyle('A1:I1')->getFill()
+                ->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)
+                ->getStartColor()->setARGB('FFFF0000');
+
+          $event->sheet->getStyle('A1:I1')->applyFromArray([
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                    'color' => ['argb' => '000000'],
+                ],
+            ],
+        ]);
+            
+            }
         ];
     }
 

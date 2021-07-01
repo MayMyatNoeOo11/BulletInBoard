@@ -12,12 +12,12 @@ table th {
     width: 1%;
 }
 .menu_btn {
-    padding: 5px 8px;
+    padding: 2px 5px;
     background-color:cadetblue;
     color: #000;
     border-radius: 20px;
     margin: 0px 20px;
-    font-size:2em;
+    font-size:1.5em;
 }
 .profile_preview{
     border: 1px solid grey;width:120px;height:120px
@@ -45,7 +45,8 @@ td>#btn-detail
 {
     color:brown;
     text-decoration: underline;
-  cursor: -webkit-grab; cursor: grab;
+    cursor: pointer;
+  /* cursor: -webkit-grab; cursor: grab; */
 }
 .card-header.myheader
 {

@@ -40,7 +40,10 @@
 <script
   type="text/javascript"  src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/3.6.0/mdb.min.js"></script>
    -->
+
+
 </head>
+
 <body>
    <div id="app">
           <nav class="navbar navbar-expand-md bg-sky shadow-sm" style="background-color: #e3f2fd;">
@@ -55,7 +58,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     @yield('menu')
-                    <a href="{{ route('common') }}">Home</a>
+                    
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -100,5 +103,8 @@
             @yield('content')
         </main>
     </div>
+
+
+
 </body>
 </html>

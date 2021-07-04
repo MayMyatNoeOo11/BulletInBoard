@@ -15,7 +15,7 @@
                 <div class="card-header myheader">Upload Post</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('import')}}" enctype="multipart/form-data">
+                    <form method="POST" action="{{route('post.import')}}" enctype="multipart/form-data">
                         @csrf                       
 
                         <div class="form-group row">
@@ -37,9 +37,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Import File
                                 </button>
-                                <button type="button" class="btn btn-light">
+                                <a href="{{ route('showAllPosts') }}" class="btn btn-light">
                                     Cancel  
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </form>

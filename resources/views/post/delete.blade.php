@@ -11,7 +11,7 @@
 
     <div class="row mx-auto">
 
-        <form action="{{route('deletePostConfirm')}}" method="post">
+        <form action="{{route('post.destroy')}}" method="post">
         @csrf
             <input type="hidden" name="id" value="{{$post->id}}" />
             <div class="col-xs-12 col-sm-12 col-md-12">

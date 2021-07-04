@@ -6,17 +6,13 @@
 
 @endsection
 @section('content')
-<script type="text/javascript">
-        function preventBack() { window.history.forward(); }
-        setTimeout("preventBack()", 0);
-        window.onunload = function () { null };
-</script> 
+
 
 <div class="container">
     <div class="row mt-5">
         <div class="col-md-12">
            <h2 style="display:initial" class="mr-5">SCM BulletinBoard  </h2>                
-            <a href="{{route('profile',Auth::id())}}"  class="menu_btn "><i class="bi bi-person-circle"></i>Profile</a>
+            <a href="{{route('user.profile',Auth::id())}}"  class="menu_btn "><i class="bi bi-person-circle"></i>Profile</a>
 
             <a href="{{ route('showAllPosts') }}"  class="menu_btn"><i class="bi bi-file-earmark-text"></i>Posts</a>
             @if(Auth::user()->type=='0')

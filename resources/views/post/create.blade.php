@@ -34,7 +34,7 @@
                     Create Post
                 </div>
                 <div class="card-body">
-                    <form name="createPostForm" id="createPostForm" method="post" action="{{route('createPost')}}">
+                    <form name="createPostForm" id="createPostForm" method="post" action="{{route('post.createConfirm')}}">
                     @csrf
 
                         <div class="form-group">

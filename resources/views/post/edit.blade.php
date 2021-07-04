@@ -19,7 +19,7 @@
                     Edit Post
                 </div>
                 <div class="card-body">
-                    <form name="editPostForm" id="editPostForm" method="post" action="{{route('update',$post->id)}}">
+                    <form name="editPostForm" id="editPostForm" method="post" action="{{route('post.confirm',$post->id)}}">
                         @csrf
                         @method('PUT')
 

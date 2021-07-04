@@ -24,48 +24,48 @@ Route::get('/home', [HomeController::class, 'index'])->name('home');
  */
 Route::get('/', [PostController::class, 'showAllPosts'])->name('showAllPosts');
 
-Route::get('/logins', [UserController::class,'index'])->name('index');
+//Route::get('/logins', [UserController::class,'index'])->name('index');
 
 //Route::resource('/tests','App\Http\Controllers\TestController');
-Route::get('export',[PostController::class,'export'])->name('export');
-Route::get('/post/show/{id}',[PostController::class,'show'])->name('showPost');
+Route::get('post/export',[PostController::class,'export'])->name('post.export');
+Route::get('/post/show/{id}',[PostController::class,'show'])->name('post.show');
 //Auth Routes
-Route::group(['middleware' => ['auth']], function(){
+Route::group(['middleware' => ['prevent-back-history','auth']], function(){
     Route::get('/common',[UserController::class,'common'])->name('common');
-    Route::get('/post/create',[PostController::class,'create'])->name('create');
-    Route::post('/post/create-post',[PostController::class,'create_post'])->name('createPost');
-    Route::post('/post/create-confirm',[PostController::class,'create_confirm_post'])->name('createConfirmPost');
-    Route::get('/post/edit/{id}',[PostController::class,'edit'])->name('editPost');
-    Route::post('/post/update/{id}',[PostController::class,'update_post'])->name('updatePost');
-    Route::post('/post/update-confirm/{post}',[PostController::class,'update_confirm_post'])->name('updateConfirmPost');
-    Route::get('/post/delete/{id}',[PostController::class,'delete_post'])->name('deletePost');
-    Route::post('/post/delete-post',[PostController::class,'delete_post_confirm'])->name('deletePostConfirm');
+    Route::get('/post/create',[PostController::class,'create'])->name('post.create');
+    Route::post('/post/createConfirm',[PostController::class,'createConfirm'])->name('post.createConfirm');
+    Route::post('/post/store',[PostController::class,'store'])->name('post.store');
+    Route::get('/post/edit/{id}',[PostController::class,'edit'])->name('post.edit');
+    Route::post('/post/updateConfirm/{id}',[PostController::class,'updateConfirm'])->name('post.updateConfirm');
+    Route::post('/post/update/{post}',[PostController::class,'update'])->name('post.update');
+    Route::get('/post/delete/{id}',[PostController::class,'delete'])->name('post.delete');
+    Route::post('/post/delete-post',[PostController::class,'destroy'])->name('post.destroy');
      
     
-    Route::get('/user/update/{id?}',[UserController::class,'update'])->name('update');
-    Route::post('/user/update/{id}',[UserController::class,'update_user'])->name('updateUser');
-    Route::post('/user/update-confirm/{user}',[UserController::class,'update_confirm_user'])->name('updateConfirmUser');
-    Route::get('/user/profile/{id}',[UserController::class,'profile'])->name('profile');
-    Route::get('/user/change-password/{id}',[UserController::class,'changePasswordForm'])->name('changePasswordForm');
-    Route::post('/user/change-password',[UserController::class,'changePassword'])->name('changePassword');
+    Route::get('/user/edit/{id?}',[UserController::class,'edit'])->name('user.edit');
+    Route::post('/user/edit-confrim/{id}',[UserController::class,'updateConfirm'])->name('user.updateConfirm');
+    Route::post('/user/update/{user}',[UserController::class,'update'])->name('user.update');
+    Route::get('/user/profile/{id}',[UserController::class,'profile'])->name('user.profile');
+    Route::get('/user/change-password/{id}',[UserController::class,'changePasswordForm'])->name('user.changePasswordForm');
+    Route::post('/user/change-password',[UserController::class,'changePassword'])->name('user.changePassword');
     
     
 });
-Route::group(['middleware' => ['auth','verify.admin']], function(){
+Route::group(['middleware' => ['prevent-back-history','auth','verify.admin']], function(){
     Route::get('/user/all-user',[UserController::class,'index'])->name('showAllUsers');
-    Route::get('/user/show/{id}',[UserController::class,'show'])->name('showUser');
+    Route::get('/user/show/{id}',[UserController::class,'show'])->name('user.show');
     
-    Route::get('/user/create',[UserController::class,'create'])->name('createUserForm');
-    Route::post('/user/create-user',[UserController::class,'create_user'])->name('createUser');
-    Route::post('/user/confirm-user',[UserController::class,'confirm_user'])->name('confirmUser');
+    Route::get('/user/create',[UserController::class,'create'])->name('user.create');
+    Route::post('/user/create-user',[UserController::class,'createConfirm'])->name('user.createConfirm');
+    Route::post('/user/confirm-user',[UserController::class,'store'])->name('user.store');
 
 
-    Route::get('/user/delete/{id}',[UserController::class,'delete'])->name('delete');
-    Route::post('/user/delete-user',[UserController::class,'delete_user'])->name('deleteUser');
+    Route::get('/user/delete/{id}',[UserController::class,'delete'])->name('user.delete');
+    Route::post('/user/delete-user',[UserController::class,'destroy'])->name('user.destroy');
 
   
-    Route::get('/post/import-form',[PostController::class,'importForm'])->name('importForm');
-    Route::post('/post/import',[PostController::class,'import'])->name('import');
+    Route::get('/post/import-form',[PostController::class,'importForm'])->name('post.importForm');
+    Route::post('/post/import',[PostController::class,'import'])->name('post.import');
 
     
 

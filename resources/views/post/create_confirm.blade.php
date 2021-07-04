@@ -3,7 +3,7 @@
 @section('content')
     <div class="row mt-1">
         <div class="col-md-12">      
-            <form action="{{route('createConfirmPost')}}" method="post">
+            <form action="{{route('post.store')}}" method="post">
             @csrf
 
                 <input type="hidden" id="title" name="title" value="{{$post->title}}" >

@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="post"  enctype="multipart/form-data" action="{{route('updateUser',$userData->id)}}">
+                    <form method="post"  enctype="multipart/form-data" action="{{route('user.updateConfirm',$userData->id)}}">
                         @csrf
                         <input type="hidden" value="{{$userData->profile_photo}}" name="old_photo" />
                         <div class="row">
@@ -91,9 +91,7 @@
                                             </span>
                                         @enderror
                                     </div>
-                                    <div class="col-md-1">
-                                        <span class="require-notation">*</span>
-                                    </div>
+
                                 </div> 
 
                                 <div class="form-group row">
@@ -157,7 +155,7 @@
                                 <div class="form-group row">
                                         
                                     <div class="col-md-3">
-                                        <a href="{{route('changePasswordForm',$userData->id)}}" >Change Password</a>
+                                        <a href="{{route('user.changePasswordForm',$userData->id)}}" >Change Password</a>
                                     </div>
                                 </div>
 

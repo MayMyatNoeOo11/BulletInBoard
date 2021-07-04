@@ -24,7 +24,7 @@
                                     <img class="profile_preview" src="{{ asset('storage/images/'.$userData->profile_photo)}}" id="profile_image_preview"/>
                                 </div>
                                 <div class="col-md-1 offset-md-7">
-                                    <a class="btn btn-primary btn-lg" href="{{route('updateUser',Auth::id())}}">
+                                    <a class="btn btn-primary btn-lg" href="{{route('user.edit',Auth::id())}}">
                                         Edit
                                     </a>
                                 </div>

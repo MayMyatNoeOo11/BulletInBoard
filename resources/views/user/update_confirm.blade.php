@@ -9,7 +9,7 @@
             <h4 class="text-center">Update User Confirmation</h4>
             <div class="card-body confirm-bg-color">
                 <div class="row mb-2">
-                    <form method="post" action="{{route('updateConfirmUser',$userData->id)}}">
+                    <form method="post" action="{{route('user.update',$userData->id)}}">
                     @csrf
                         <input type="hidden" value="{{$image}}" name="profile_photo" />
                         <input type="hidden" value="{{$userData->name}}" name="name" />

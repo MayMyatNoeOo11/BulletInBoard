@@ -17,7 +17,7 @@
                     <h4 class="text-center">Create User</h4>
                 </div>   
                 <div class="card-body">
-                    <form method="POST" enctype="multipart/form-data" action="{{route('createUser') }}" >
+                    <form method="POST" enctype="multipart/form-data" action="{{route('user.createConfirm') }}" >
                         @csrf
                         <div class="form-group row">
                             <label for="name" class="col-md-4 col-form-label text-md-right">User Name</label> 

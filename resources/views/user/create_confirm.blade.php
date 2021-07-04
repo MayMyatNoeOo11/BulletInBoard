@@ -3,7 +3,7 @@
 
 @section('content')
 
-<form action="{{route('confirmUser',$userData)}}" method="post">
+<form action="{{route('user.store',$userData)}}" method="post">
       @csrf
     <div class="col-md-8 offset-md-2 mt-2">
         <div class="row card">

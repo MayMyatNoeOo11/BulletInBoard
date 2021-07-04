@@ -41,7 +41,7 @@
                     <button type="submit" name="search" id="btn-search" class=" btn btn-large btn-info mr-2" onclick="search()"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
                 </form>
                 <button type="button" name="clear" id="btn-clear" class="btn btn-large btn-info  mr-5" onclick="clearSearchBox()">Clear</button>
-                <a  href="{{route('createUserForm')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>        
+                <a  href="{{route('user.create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>        
             </div>
         </div>
         
@@ -66,7 +66,7 @@
                     <tr>
                             <td class="align-center">{{++$k}}</td>
                             <td class="align-center"><a data-toggle="modal" id="btn-detail" data-target="#detailModal"
-                                    data-attr="{{route('showUser',$data->id)}}">{{ $data->name }}</a></td>
+                                    data-attr="{{route('user.show',$data->id)}}">{{ $data->name }}</a></td>
                             <td class="align-center">{{$data->email}}</td>
                             <td class="align-center">{{$data->created_user_name}}</td>
                             <td class="align-center">{{$data->phone?:'-'}}</td>
@@ -77,9 +77,9 @@
                         
                             <td>
                             <form>
-                                <a class="btn btn-success btn-sm" href="{{route('updateUser',$data->id)}}">Edit</a>
+                                <a class="btn btn-success btn-sm" href="{{route('user.edit',$data->id)}}">Edit</a>
                                 <a class="btn btn-danger btn-sm"data-toggle="modal" id="btn-delete" data-target="#deleteModal"
-                                    data-attr="{{route('delete',$data->id)}}">Delete</a>
+                                    data-attr="{{route('user.delete',$data->id)}}">Delete</a>
                             </form>
                         </td>  
                     

@@ -14,7 +14,7 @@
 <!-- <h3>Create Post Confirmation </h3> -->
   <div class="row mt-1">
     <div class="col-md-12">      
-      <form action="{{route('updateConfirmPost',$post->id)}}" method="post">
+      <form action="{{route('post.update',$post->id)}}" method="post">
         @csrf    
 
           <input type="hidden" id="title" name="title" value="{{$post->title}}" />

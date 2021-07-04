@@ -20,7 +20,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{route('changePassword')}}">
+                    <form method="POST" action="{{route('user.changePassword')}}">
                         @csrf                       
                         <input type="hidden" name="id" value="{{$userData->id}}" />
                         <input type="hidden" name="password" value="{{$userData->password}}"/>

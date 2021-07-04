@@ -32,7 +32,7 @@
                 Update Post
             </div>
             <div class="card-body">
-                <form name="updatePostForm" id="updatePostForm" method="post" action="{{route('updatePost',$postData->id)}}">
+                <form name="updatePostForm" id="updatePostForm" method="post" action="{{route('post.updateConfirm',$postData->id)}}">
                     @csrf
                     <input type="hidden" name="created_user_id" value="{{ $postData->created_user_id }}" id="created_user_id" />
                     <div class="form-group">

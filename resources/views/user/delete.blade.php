@@ -11,7 +11,7 @@
 
     <div class="row mx-auto">
         <div class="row">
-            <form method="post" action="{{route('deleteUser')}}">
+            <form method="post" action="{{route('user.destroy')}}">
              @csrf
                 <input type="hidden" value="{{$data->id}}" name="id" />
                 <input type="hidden" value="{{$data->name}}" name="name" />

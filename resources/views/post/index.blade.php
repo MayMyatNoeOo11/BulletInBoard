@@ -16,10 +16,10 @@
                 <form action="{{route('showAllPosts')}}" method="get">
                     <input  style="padding-left:5px" type="text" name="search" id="txt-search" value="{{$searchText}}" />
                     <button type="submit" id="btn-search" class="btn btn-large btn-info"><i class="bi bi-search"></i>&nbsp;&nbsp;Search</button>
-                    <a   href="{{route('export')}}" name="download" id="btn-download" class="btn btn-large btn-info"><i class="bi bi-download"></i>&nbsp;&nbsp;Download</a> 
+                    <a   href="{{route('post.export')}}" name="download" id="btn-download" class="btn btn-large btn-info"><i class="bi bi-download"></i>&nbsp;&nbsp;Download</a> 
                     @if(Auth::user())
-                        <a href="{{route('importForm')}}" name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>            
-                        <a  href="{{route('create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>  
+                        <a href="{{route('post.importForm')}}" name="upload" id="btn-upload" class="btn btn-large btn-info"><i class="bi bi-upload"></i>&nbsp;&nbsp;Upload</a>            
+                        <a  href="{{route('post.create')}}" name="add" id="btn-add" class="btn btn-large btn-info"><i class="bi bi-plus-circle"></i>&nbsp;&nbsp;Add</a>  
                     @endif    
            
            
@@ -66,17 +66,17 @@
                     <tr>
                         <th scope="row" style="width:1px; white-space:nowrap;">{{ ++$i}} </th>
                         <td><a data-toggle="modal" id="btn-detail" data-target="#detailModal"
-                                data-attr="{{route('showPost',$data->id)}}" >{{ $data->title }}</a></td>
+                                data-attr="{{route('post.show',$data->id)}}" >{{ $data->title }}</a></td>
                         <td>{{ \Str::limit($data->description,50) }}</td>
                         <td>{{ $data->name }}</td>
                         <td>{{date_format($data->created_at,'Y-m-d')}} </td>
                         @if(Auth::user())
                         <td style="width:1px; white-space:nowrap;">
                             <form >                               
-                                <a class="btn btn-sm btn-success" href="{{ route('editPost',$data->id) }}">Edit</a>   
+                                <a class="btn btn-sm btn-success" href="{{ route('post.edit',$data->id) }}">Edit</a>   
                                 @csrf                                
                                 <a class="btn btn-danger btn-sm"data-toggle="modal" id="btn-delete" data-target="#deleteModal"
-                                data-attr="{{route('deletePost',$data->id)}}">Delete</a>
+                                data-attr="{{route('post.delete',$data->id)}}">Delete</a>
                             </form>
                         </td> 
                         @else                        

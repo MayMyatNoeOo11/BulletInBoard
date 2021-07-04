@@ -22,7 +22,7 @@ class UserController extends Controller
     {
       $this->userService = $user_service_interface;
     } 
-   //$photo_destination_path=Config::get('constants.options.profile_photo_destination_path');
+   
     public function photo_store(Request $request)
     {
         
@@ -45,10 +45,12 @@ class UserController extends Controller
         return $profileImage;
     }
     
-    /*
-    * User Detail Form
-    *@return ..resources\views\user\show.blade.php
-    */
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
     public function show($id)
     {   
         $user=$this->userService->getUserInfo($id);
@@ -56,11 +58,11 @@ class UserController extends Controller
         return view('user.show', compact('user'));
     }
 
-     /**
-     * Show All Users
+    /**
+     * Show the list of users
      *
-     * @return ..resources\views\user\index.blade.php
-     */  
+     * @return \Illuminate\Http\Response
+     */
     public function index(Request $request)
     {
         
@@ -82,8 +84,9 @@ class UserController extends Controller
     }
 
     /**
-     *  Common Menu Form     
-     * @return ..resources\views\user\common.blade.php
+     * Show common screen
+     *
+     * @return \Illuminate\Http\Response
      */
     public function common()
     {
@@ -91,8 +94,9 @@ class UserController extends Controller
     }
 
     /**
-     * Profile Form 
-     *  @return ..resources\views\user\profile.blade.php
+     * Show the form for user profile
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function profile($id)
     {
@@ -102,8 +106,9 @@ class UserController extends Controller
     }
 
     /**
-     *  Create User  Form  
-     *  @return ..resources\views\user\create.blade.php
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -112,11 +117,12 @@ class UserController extends Controller
 
   
     /**
-     * Create User 
-     * Validation
-     *  @return ..resources\views\user\create_confirm.blade.php
+     * Validate and confirm user input.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function create_user(Request $request)
+    public function createConfirm(Request $request)
     {     
 
      $request->validate([
@@ -148,27 +154,36 @@ class UserController extends Controller
     }
 
     /**
-     * Store User in db
-     *  @return ..resources\views\user\index.blade.php
-     * 
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function confirm_user(Request $request)
+    public function store(Request $request)
     {    
         $this->userService->saveUser($request);
         return redirect()->route('showAllUsers')->with('success','New user is created successfully.');
     }
 
     /**
-     *  Update User Form    
-     * GET Method
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update($id)
+    public function edit($id)
     {
         $userData=$this->userService->getUserbyId($id);
         return view('user.update',compact('userData'));
     }
 
-    public function update_user(Request $request,$id)
+    /**
+     * Validate and confirm user input.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateConfirm(Request $request,$id)
     {
         $request->validate([
                 'name'=>['required',Rule::unique('users')->ignore($id)],
@@ -199,20 +214,24 @@ class UserController extends Controller
         return view('user.update_confirm',compact('userData'))->with('image',$profileImage);
     }
 
+ 
     /**
-     * Update user in db
-     *@return ..resources\views\user\index.blade.php
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update_confirm_user(Request $request,$id)
+    public function update(Request $request,$id)
     {        
         $this->userService->updateUser($request,$id);     
         return redirect()->route('showAllUsers')->with('success','User is updated successfully.');      
     }
 
     /**
-     *  Delete User Form
+     *  Retrieve the specified resource to delete.
      * @parameter $id
-     *  @return ..resources\views\user\delete.blade.php
+     * @return \Illuminate\Http\Response
      * 
      */
     public function delete($id)
@@ -232,9 +251,12 @@ class UserController extends Controller
     }
 
     /**
-     * Delete user in db
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function delete_user(Request $request)
+    public function destroy(Request $request)
     {
         $name=$request->name; 
       
@@ -253,8 +275,10 @@ class UserController extends Controller
     }
 
     /**
-     * Change Password Form
-     * @return ..resources\views\user\change_password.blade.php
+     * Show the form for changePassword the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function changePasswordForm($id)
     {
@@ -265,7 +289,7 @@ class UserController extends Controller
 
     /**
      * Change Password 
-     * Post Method
+     * @param  \Illuminate\Http\Request  $request
      */
     public function changePassword(Request $request)
     {       
@@ -292,7 +316,7 @@ class UserController extends Controller
   
      // return redirect()->route('showAllUsers')->with('success','Change Password Successful.');
         // Session::forget(['old_value','new_value','new_confirm_value']);
-        return redirect()->route('update', ['id' => $request->id]);
+        return redirect()->route('edit', ['id' => $request->id]);
 
     }
 }

@@ -22,10 +22,10 @@ class PostController extends Controller
   }
 
     /**
-     * Display the post detail
+     * Display the specified resource.
      *
      * @param  int  $id
-     * @return ..Resources\Views\Post\show.blade.php
+     * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
@@ -35,8 +35,9 @@ class PostController extends Controller
     }
 
     /**
-     * Show active Posts List for User itself, Show all posts for Admin
-     * @return  ..Resources\Views\Post\index.blade.php
+     * Show the list of users
+     *
+     * @return \Illuminate\Http\Response
      */
     public function showAllPosts(Request $request)
     {
@@ -66,8 +67,9 @@ class PostController extends Controller
     }
 
     /**
-     * Post create form
-     * @return  ..Resources\Views\Post\create.blade.php
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
@@ -75,11 +77,12 @@ class PostController extends Controller
     }
 
     /**
-     * Create Post
-     * Validations make
-     * @return  ..Resources\Views\Post\create_confirm.blade.php 
+     * Validate and confirm post input.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-     public function create_post(Request $request)
+     public function createConfirm(Request $request)
     {
       $request->validate([
           'title'=>'required|max:255|unique:posts,title,NULL,id,deleted_at,NULL',
@@ -101,10 +104,12 @@ class PostController extends Controller
     }
      
     /**
-     * Create Post in db
-     * @return redirect to ShowAllPosts
-     */     
-    public function create_confirm_post(Request $request)
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */    
+    public function store(Request $request)
     { 
         $postData=$this->postService->savePost($request);
 
@@ -113,9 +118,10 @@ class PostController extends Controller
 
     
     /**
-     * Post update form
-     * @return  ..Resources\Views\Post\update.blade.php
-     * with update post
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
@@ -126,11 +132,13 @@ class PostController extends Controller
 
 
     /**
-     * Update Post
-     * Validations
-     * @return  ..Resources\Views\Post\update_confirm.blade.php
+     * Validate and confirm user input.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param int $id
+     * @return \Illuminate\Http\Response
      */
-    public function update_post(Request $request,$id)
+    public function updateConfirm(Request $request,$id)
     {
       $request->validate([
         'title'=>['required', Rule::unique('posts')->ignore($id)],
@@ -166,10 +174,13 @@ class PostController extends Controller
     }
     
     /**
-     *  Update Post in db
-     * @return redirect to ShowAllPosts
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update_confirm_post(Request $request,$id)
+    public function update(Request $request,$id)
     {
       $this->postService->updatePost($request,$id);
 
@@ -178,11 +189,12 @@ class PostController extends Controller
     }
 
     /**
-     * Delete Post Form
+     *  Retrieve the specified resource to delete.
      * @parameter $id
-     * @return ..Resources\Views\Post\delete.blade.php
+     * @return \Illuminate\Http\Response
+     * 
      */
-    public function delete_post($id)
+    public function delete($id)
     {
       $post=$this->postService->getPostbyId($id);     
     
@@ -190,10 +202,12 @@ class PostController extends Controller
     }
 
     /**
-     * Delete Post in db
-     * @return redirect to ShowAllPosts
+     * Remove the specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function delete_post_confirm(Request $request) //delete post confirm
+    public function destroy(Request $request) //delete post confirm
     {
       $is_deleted=$this->postService->deletePost($request->id);
       if($is_deleted==1)
@@ -210,17 +224,20 @@ class PostController extends Controller
     }
 
     /**
-     * Post Upload Form
-     * @return ..Resources\Views\Post\upload.blade.php
+     * Show upload form     
+     *
+     *  @return \Illuminate\Http\Response
      */
     public function importForm()
     {
       return view('post.upload');
     }
     
-   /**
-    * Import CSV 
-    */
+    /**
+     * Upload post    
+     *
+     *  @return \Illuminate\Http\Response
+     */
     public function import(Request $request)
     {
       Excel::import(new PostsImport,request()->file('fileUpload'));
@@ -228,10 +245,11 @@ class PostController extends Controller
      return redirect()->route('showAllPosts')->with('Upload successful.');  
     }
 
-   /**
-    * Export 
-    * @return 
-    */
+    /**
+     * Download post    
+     *
+     *  @return \Illuminate\Http\Response
+     */
     public function export() 
     {
         return Excel::download(new PostsExport, 'posts.xlsx');
